@@ -1,48 +1,40 @@
-/* Reset stila */
-body, html, #root {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  font-family: Arial, sans-serif;
-  background-color: #f5f5f5;
-}
-
-.login-page {
+.signup-page {
   height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.login-box {
+.signup-box {
   background-color: white;
   padding: 30px 40px;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   width: 100%;
-  max-width: 350px;
+  max-width: 400px;
 }
 
-.login-box h2 {
+.signup-box h2 {
   text-align: center;
   margin-bottom: 20px;
 }
 
-.login-box form {
+.signup-box form {
   display: flex;
   flex-direction: column;
 }
 
-.login-box label {
+.signup-box label {
   margin: 10px 0 5px;
 }
 
-.login-box input {
+.signup-box input,
+.signup-box select {
   padding: 10px;
   font-size: 16px;
 }
 
-.login-box button {
+.signup-box button {
   margin-top: 20px;
   padding: 10px;
   font-size: 16px;
@@ -54,28 +46,20 @@ body, html, #root {
   transition: background-color 0.2s ease;
 }
 
-.login-box button:hover {
+.signup-box button:hover {
   background-color: #0056b3;
 }
 
-.signup-redirect {
+.login-redirect {
   margin-top: 20px;
   text-align: center;
 }
 
-.signup-button {
-  margin-top: 10px;
-  background-color: transparent;
-  border: 1px solid #007bff;
+.login-redirect a {
   color: #007bff;
-  padding: 8px 12px;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 14px;
-  transition: all 0.2s ease;
+  text-decoration: none;
 }
 
-.signup-button:hover {
-  background-color: #007bff;
-  color: white;
+.login-redirect a:hover {
+  text-decoration: underline;
 }
