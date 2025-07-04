@@ -3,7 +3,8 @@ import ReactDOM from 'react-dom/client';
 import App from './App';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import SignUpPage from './pages/SignUpPage';
-import './App.css';
+import './css/App.css';
+import HomePage from './pages/HomePage';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
@@ -11,6 +12,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
       <Routes>
         <Route path="/" element={<App />} />
         <Route path="/signup" element={<SignUpPage />} />
+        <Route path="/home" element={<HomePage />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>,

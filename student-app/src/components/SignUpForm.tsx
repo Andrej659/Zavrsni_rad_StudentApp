@@ -11,12 +11,17 @@ const faculties = [
   'Other'
 ];
 
-const SignUpForm: React.FC = () => {
+interface Props {
+  onSuccess: () => void;
+}
+
+const SignUpForm: React.FC<Props> = ({ onSuccess }) => {
   const [selectedFaculty, setSelectedFaculty] = useState('');
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    alert(`Account created!\nFaculty: ${selectedFaculty}`);
+    // Pretvaramo se da je uspješno
+    onSuccess();
   };
 
   return (

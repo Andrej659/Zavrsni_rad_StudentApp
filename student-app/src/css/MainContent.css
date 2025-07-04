@@ -1,0 +1,11 @@
+.main-content {
+  flex: 1;
+}
+
+.content-box {
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 20px;
+  margin-top: 10px;
+  background-color: #fafafa;
+}
