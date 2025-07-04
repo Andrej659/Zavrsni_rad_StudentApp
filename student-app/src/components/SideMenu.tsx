@@ -14,7 +14,7 @@ const SideMenu: React.FC<Props> = ({ activeSection, onChangeSection }) => {
       {sections.map((section) => (
         <div
           key={section}
-          className={activeSection === section ? 'active' : ''}
+          className={`side-menu-option ${activeSection === section ? 'active' : ''}`}
           onClick={() => onChangeSection(section)}
         >
           {section}

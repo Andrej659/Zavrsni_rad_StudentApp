@@ -1,8 +1,11 @@
 .main-content {
   flex: 1;
+  padding-top: 10px;
+  padding-left: 15px;
 }
 
 .content-box {
+  padding-top: 100px;
   border: 1px solid #ddd;
   border-radius: 6px;
   padding: 20px;

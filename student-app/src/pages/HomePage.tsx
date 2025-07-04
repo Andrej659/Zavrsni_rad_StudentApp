@@ -10,7 +10,21 @@ const HomePage: React.FC = () => {
 
   return (
     <div className="home-container">
-      <YearSelector selectedYear={selectedYear} onSelectYear={setSelectedYear} />
+      <header className="main-header">
+        <div className="header-left">
+          <h1 className="logo">
+            <span className="logo-white">Student</span><span className="logo-orange">App</span>
+          </h1>
+          <div className="year-options">
+            <YearSelector selectedYear={selectedYear} onSelectYear={setSelectedYear} />
+          </div>
+        </div>
+        <div className="header-actions">
+          <button className="header-btn">Profile</button>
+          <button className="header-btn logout">Logout</button>
+        </div>
+      </header>
+
       <div className="content-wrapper">
         <SideMenu activeSection={activeSection} onChangeSection={setActiveSection} />
         <MainContent section={activeSection} year={selectedYear} />
