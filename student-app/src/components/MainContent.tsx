@@ -1,6 +1,6 @@
 import React from 'react';
 import '../css/MainContent.css';
-import ChatBox from '../components/ChatBox';
+import ChatBox from './ChatBox';
 
 interface Props {
   section: 'Chat' | 'Calendar' | 'Documents';
