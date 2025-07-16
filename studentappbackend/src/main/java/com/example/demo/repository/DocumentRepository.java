@@ -1,4 +1,11 @@
 package com.example.demo.repository;
 
-public interface DocumentRepository {
+import com.example.demo.models.entities.Document;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import java.util.Optional;
+
+public interface DocumentRepository extends JpaRepository<Document, Integer> {
+
+    Optional<Document> findByDocName(String docName);
 }
