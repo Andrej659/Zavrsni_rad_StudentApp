@@ -1,32 +1,34 @@
 package com.example.demo.models.entities;
 
 import jakarta.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
-@Table(name = "Courses")
+@Table(name = "courses")
 public class Course {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "courseid")
     private Integer courseID;
 
-    @Column(nullable = false, length = 30)
+    @Column(name = "coursename", nullable = false, length = 30)
     private String courseName;
 
-    // Veza na academicYear (m:1)
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @JoinColumn(name = "acYrID", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "acyrid", nullable = false)
     private AcademicYear academicYear;
 
-    // Many-to-many veza na Users preko isAttending
-    @ManyToMany(mappedBy = "courses")
-    private Set<User> attendees = new HashSet<>();
 
+    // Default constructor
     public Course() {}
 
+    // Constructor with parameters
+    public Course(String courseName, AcademicYear academicYear) {
+        this.courseName = courseName;
+        this.academicYear = academicYear;
+    }
 
+    // Getters and Setters
     public Integer getCourseID() {
         return courseID;
     }
@@ -51,12 +53,29 @@ public class Course {
         this.academicYear = academicYear;
     }
 
-    public Set<User> getAttendees() {
-        return attendees;
+    // toString method
+    @Override
+    public String toString() {
+        return "Course{" +
+                "courseID=" + courseID +
+                ", courseName='" + courseName + '\'' +
+                ", academicYear=" + academicYear +
+                '}';
     }
 
-    public void setAttendees(Set<User> attendees) {
-        this.attendees = attendees;
+    // equals and hashCode methods
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Course course = (Course) o;
+        return courseID != null && courseID.equals(course.courseID);
+    }
+
+    @Override
+    public int hashCode() {
+        return courseID != null ? courseID.hashCode() : 0;
     }
 }
 

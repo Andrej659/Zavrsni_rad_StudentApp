@@ -1,40 +1,38 @@
 package com.example.demo.models.entities;
 
 import jakarta.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
-@Table(name = "Users",
+@Table(name = "users",
         uniqueConstraints = @UniqueConstraint(columnNames = "username"))
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "userid")
     private Integer userID;
 
-    @Column(nullable = false)
+    @Column(name = "isadmin", nullable = false)
     private Integer isAdmin;
 
-    @Column(nullable = false, length = 30, unique = true)
+    @Column(name = "username", nullable = false, length = 30, unique = true)
     private String username;
 
-    @Column(nullable = false, length = 30)
+    @Column(name = "password", nullable = false, length = 30)
     private String password;
 
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @JoinColumn(name = "facultyID", nullable = false)
+    @JoinColumn(name = "facultyid", nullable = false)
     private Faculty faculty;
 
-    @ManyToMany
-    @JoinTable(
-            name = "isAttending",
-            joinColumns =  @JoinColumn(name = "userID"),
-            inverseJoinColumns = @JoinColumn(name = "courseID")
-    )
-    private Set<Course> courses = new HashSet<>();
-
     public User() {}
+
+    public User(Integer isAdmin, String username, String password, Faculty faculty) {
+        this.isAdmin = isAdmin;
+        this.username = username;
+        this.password = password;
+        this.faculty = faculty;
+    }
 
     public Integer getUserID() { return userID; }
     public void setUserID(Integer userID) { this.userID = userID; }
@@ -44,8 +42,13 @@ public class User {
     public void setUsername(String username) { this.username = username; }
     public String getPassword() { return password; }
     public void setPassword(String password) { this.password = password; }
-    public Set<Course> getCourses() { return courses; }
-    public void setCourses(Set<Course> courses) { this.courses = courses; }
+    public Faculty getFaculty() {
+        return faculty;
+    }
+
+    public void setFaculty(Faculty faculty) {
+        this.faculty = faculty;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -63,6 +66,11 @@ public class User {
                 ", username='" + username + '\'' +
                 ", isAdmin=" + isAdmin +
                 '}';
+    }
+
+    @Override
+    public int hashCode() {
+        return userID != null ? userID.hashCode() : 0;
     }
 }
 
