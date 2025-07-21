@@ -35,19 +35,27 @@ public class Document {
         this.course = course;
     }
 
-    public String getDocname() {
+    public Integer getDocID() {
+        return docID;
+    }
+
+    public void setDocID(Integer docID) {
+        this.docID = docID;
+    }
+
+    public String getDocName() {
         return docName;
     }
 
-    public void setDocname(String docName) {
+    public void setDocName(String docName) {
         this.docName = docName;
     }
 
-    public String getDoclocation() {
+    public String getDocLocation() {
         return docLocation;
     }
 
-    public void setDoclocation(String docLocation) {
+    public void setDocLocation(String docLocation) {
         this.docLocation = docLocation;
     }
 

@@ -32,6 +32,14 @@ public class Event {
         this.course = course;
     }
 
+    public Integer getEventID() {
+        return eventID;
+    }
+
+    public void setEventID(Integer eventID) {
+        this.eventID = eventID;
+    }
+
     public String getEventName() {
         return eventName;
     }

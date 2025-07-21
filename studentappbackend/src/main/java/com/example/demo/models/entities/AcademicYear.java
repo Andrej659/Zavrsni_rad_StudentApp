@@ -43,6 +43,14 @@ public class AcademicYear {
         this.faculty = faculty;
     }
 
+    public Integer getAcYrID() {
+        return acYrID;
+    }
+
+    public void setAcYrID(Integer acYrID) {
+        this.acYrID = acYrID;
+    }
+
     // toString method
     @Override
     public String toString() {

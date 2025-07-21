@@ -38,6 +38,14 @@ public class Message {
         this.academicYear = academicYear;
     }
 
+    public Integer getMsgID() {
+        return msgID;
+    }
+
+    public void setMsgID(Integer msgID) {
+        this.msgID = msgID;
+    }
+
     public Integer getDocID() {
         return msgID;
     }

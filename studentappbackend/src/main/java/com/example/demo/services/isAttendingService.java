@@ -34,7 +34,7 @@ public class isAttendingService {
     }
 
     // Delete by ID
-    public void deleteById(Integer id) {
+    public void deleteById(IsAttendingId id) {
         if (!isAttendingRepository.existsById(id)) {
             throw new IllegalArgumentException("Attendance with ID " + id + " not found");
         }
