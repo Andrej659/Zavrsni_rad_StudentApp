@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.models.entities.AcademicYear;
 import com.example.demo.models.entities.Course;
 import com.example.demo.services.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -89,5 +90,11 @@ public class CourseController {
         } catch (IllegalArgumentException ex) {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    @GetMapping("/academic-year/{acYrID}")
+    public ResponseEntity<List<Course>> getByFaculty(@PathVariable("acYrID") Integer acYrID) {
+        List<Course> list = courseService.getCoursesByAcYr(acYrID);
+        return ResponseEntity.ok(list);
     }
 }

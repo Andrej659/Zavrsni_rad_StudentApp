@@ -56,4 +56,8 @@ public class CourseService {
     public void delete(Course course) {
         courseRepository.delete(course);
     }
+
+    public List<Course> getCoursesByAcYr(Integer acYrID){
+        return courseRepository.findByAcademicYear_AcYrID(acYrID);
+    }
 }

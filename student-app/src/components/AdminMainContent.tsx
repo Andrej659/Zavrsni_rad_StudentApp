@@ -4,7 +4,7 @@ import UsersAdminContent from './adminComponents/UsersAdminContent';
 import FacultiesAdminContent from './adminComponents/FacultiesAdminContent';
 import AcademicYearAdminContent from './adminComponents/AcademicYearAdminContent';
 import CoursesAdminContent from './adminComponents/CoursesAdminContent';
-//import EventsAdminContent from './adminComponents/EventsAdminContent';
+import EventsAdminContent from './adminComponents/EventsAdminContent';
 //import DocumentsAdminContent from './adminComponents/DocumentsAdminContent';
 
 interface Props {
@@ -24,8 +24,8 @@ const renderSection = () => {
         return <AcademicYearAdminContent />;
       case 'Courses':
         return <CoursesAdminContent />;
-      //case 'Events':
-        //return <EventsAdminContent />;
+      case 'Events':
+        return <EventsAdminContent />;
       //case 'Documents':
         //return <DocumentsAdminContent />;
       default:
