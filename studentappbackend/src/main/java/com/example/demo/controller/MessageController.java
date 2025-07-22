@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 
+import com.example.demo.models.entities.Faculty;
 import com.example.demo.models.entities.Message;
 import com.example.demo.services.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,8 +10,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.sql.Date;
+import java.util.List;
 import java.util.Optional;
 
+@CrossOrigin(origins = "http://localhost:5173")
 @RestController
 @RequestMapping("/api/messages")
 public class MessageController {
@@ -52,6 +55,12 @@ public class MessageController {
         return maybe
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Message>> getAll() {
+        List<Message> list = messageService.findAll();
+        return ResponseEntity.ok(list);
     }
 
     /**

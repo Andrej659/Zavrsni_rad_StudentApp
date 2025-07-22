@@ -12,12 +12,12 @@ public class IsAttending {
     private IsAttendingId id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @MapsId("courseid")
+    @MapsId("courseID")
     @JoinColumn(name = "courseid", nullable = false)
     private Course course;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @MapsId("userid")
+    @MapsId("userID")
     @JoinColumn(name = "userid", nullable = false)
     private User user;
 

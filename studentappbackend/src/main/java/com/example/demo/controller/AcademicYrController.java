@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.models.entities.AcademicYear;
 import com.example.demo.models.entities.Faculty;
+import com.example.demo.models.entities.User;
 import com.example.demo.services.AcademicYrService;
 import com.example.demo.services.FacultyService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
+@CrossOrigin(origins = "http://localhost:5173")
 @RestController
 @RequestMapping("/api/academic-years")
 public class AcademicYrController {
@@ -62,6 +64,12 @@ public class AcademicYrController {
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
+    @GetMapping
+    public ResponseEntity<List<AcademicYear>> getAllAcYr() {
+        List<AcademicYear> list = academicYrService.findAll();
+        return ResponseEntity.ok(list);
+    }
+
     /**
      * Fetch an AcademicYear by its name.
      */
@@ -72,6 +80,13 @@ public class AcademicYrController {
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
+
+    @GetMapping("/faculty/{facultyID}")
+    public ResponseEntity<List<AcademicYear>> getByFaculty(@PathVariable("facultyID") Integer facultyID) {
+        List<AcademicYear> list = academicYrService.findByFaculty(facultyID);
+        return ResponseEntity.ok(list);
+    }
+
 
     /**
      * Delete an AcademicYear by its ID.

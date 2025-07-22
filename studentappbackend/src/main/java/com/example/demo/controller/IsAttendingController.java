@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.models.entities.Faculty;
 import com.example.demo.models.entities.IsAttending;
 import com.example.demo.models.entities.IsAttendingId;
 import com.example.demo.services.isAttendingService;
@@ -8,8 +9,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
+import java.util.List;
 import java.util.Optional;
 
+@CrossOrigin(origins = "http://localhost:5173")
 @RestController
 @RequestMapping("/api/is-attending")
 public class IsAttendingController {
@@ -32,6 +35,12 @@ public class IsAttendingController {
                 .created(URI.create("/api/is-attending/" + saved.getCourse().getCourseID()
                         + "/" + saved.getUser().getUserID()))
                 .body(saved);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<IsAttending>> getAll() {
+        List<IsAttending> list = isAttendingService.findAll();
+        return ResponseEntity.ok(list);
     }
 
     /**

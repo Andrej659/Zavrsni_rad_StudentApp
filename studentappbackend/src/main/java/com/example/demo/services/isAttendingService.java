@@ -3,12 +3,14 @@ package com.example.demo.services;
 import com.example.demo.models.entities.Document;
 import com.example.demo.models.entities.IsAttending;
 import com.example.demo.models.entities.IsAttendingId;
+import com.example.demo.models.entities.User;
 import com.example.demo.repository.DocumentRepository;
 import com.example.demo.repository.IsAttendingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -27,10 +29,15 @@ public class isAttendingService {
         return isAttendingRepository.save(isAttending);
     }
 
+    @Transactional(readOnly = true)
+    public List<IsAttending> findAll() {
+        return isAttendingRepository.findAll();
+    }
+
     // Find by ID
     @Transactional(readOnly = true)
     public Optional<IsAttending> findById(IsAttendingId id) {
-        return isAttendingRepository.findByID(id);
+        return isAttendingRepository.findById(id);
     }
 
     // Delete by ID

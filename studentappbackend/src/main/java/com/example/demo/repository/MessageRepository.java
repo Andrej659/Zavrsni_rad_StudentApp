@@ -8,6 +8,6 @@ import java.util.Optional;
 
 public interface MessageRepository  extends JpaRepository<Message, Integer> {
 
-    Optional<Message> findByContent(String msgContent);
-    Optional<Message> findByDate(Date msgTimeSent);
+    Optional<Message> findByMsgContent(String msgContent);
+    Optional<Message> findByMsgTimeSent(Date msgTimeSent);
 }

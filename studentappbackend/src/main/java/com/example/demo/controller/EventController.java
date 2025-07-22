@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.models.entities.Event;
+import com.example.demo.models.entities.Faculty;
 import com.example.demo.services.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -8,8 +9,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.sql.Date;
+import java.util.List;
 import java.util.Optional;
 
+@CrossOrigin(origins = "http://localhost:5173")
 @RestController
 @RequestMapping("/api/events")
 public class EventController {
@@ -66,6 +69,12 @@ public class EventController {
         return maybe
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Event>> getAll() {
+        List<Event> list = eventService.findAll();
+        return ResponseEntity.ok(list);
     }
 
     /**

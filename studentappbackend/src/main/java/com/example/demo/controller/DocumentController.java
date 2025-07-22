@@ -7,8 +7,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
+import java.util.List;
 import java.util.Optional;
 
+@CrossOrigin(origins = "http://localhost:5173")
 @RestController
 @RequestMapping("/api/documents")
 public class DocumentController {
@@ -54,6 +56,12 @@ public class DocumentController {
         return maybe
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Document>> getAll() {
+        List<Document> list = documentService.findAll();
+        return ResponseEntity.ok(list);
     }
 
     /**

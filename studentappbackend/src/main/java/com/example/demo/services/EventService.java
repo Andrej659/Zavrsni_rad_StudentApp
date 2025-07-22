@@ -1,12 +1,14 @@
 package com.example.demo.services;
 
 import com.example.demo.models.entities.Event;
+import com.example.demo.models.entities.User;
 import com.example.demo.repository.EventRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -35,6 +37,11 @@ public class EventService {
     @Transactional(readOnly = true)
     public Optional<Event> findByName(String eventName) {
         return eventRepository.findByEventName(eventName);
+    }
+
+    @Transactional(readOnly = true)
+    public List<Event> findAll() {
+        return eventRepository.findAll();
     }
 
     // Find by date

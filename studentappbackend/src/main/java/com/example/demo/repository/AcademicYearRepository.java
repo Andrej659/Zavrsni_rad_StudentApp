@@ -16,4 +16,5 @@ public interface AcademicYearRepository extends JpaRepository<AcademicYear, Inte
     // Find by academic year name
     Optional<AcademicYear> findByAcYrName(String acYrName);
 
+    List<AcademicYear> findByFaculty_FacultyID(Integer facultyID);
 }

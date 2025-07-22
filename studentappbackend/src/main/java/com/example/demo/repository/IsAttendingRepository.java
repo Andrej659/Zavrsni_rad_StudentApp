@@ -9,5 +9,4 @@ import java.util.Optional;
 
 public interface IsAttendingRepository extends JpaRepository<IsAttending, IsAttendingId> {
 
-    Optional<IsAttending> findByID(IsAttendingId aID);
 }

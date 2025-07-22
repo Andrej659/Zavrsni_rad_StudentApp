@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -36,6 +37,15 @@ public class AcademicYrService {
         return academicYearRepository.findByAcYrName(acYrName);
     }
 
+    @Transactional(readOnly = true)
+    public List<AcademicYear> findByFaculty(Integer facultyID) {
+        return academicYearRepository.findByFaculty_FacultyID(facultyID);
+    }
+
+    @Transactional(readOnly = true)
+    public List<AcademicYear> findAll() {
+        return academicYearRepository.findAll();
+    }
 
     // Delete academic year by ID
     public void deleteById(Integer id) {

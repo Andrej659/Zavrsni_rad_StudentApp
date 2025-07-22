@@ -1,8 +1,10 @@
 package com.example.demo.models.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Table(name = "users",
         uniqueConstraints = @UniqueConstraint(columnNames = "username"))
 public class User {
