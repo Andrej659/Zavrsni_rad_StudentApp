@@ -1,4 +1,4 @@
-package com.example.demo.controller.dbControllers;
+package com.example.demo.services;
 
 import com.example.demo.models.entities.AcademicYear;
 import com.example.demo.repository.AcademicYearRepository;

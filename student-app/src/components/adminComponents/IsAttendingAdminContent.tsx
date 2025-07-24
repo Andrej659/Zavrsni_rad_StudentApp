@@ -5,11 +5,6 @@ interface Faculty {
     facultyName: string;
 }
 
-interface AcademicYear {
-    acYrID: number;
-    acYrName: string;
-}
-
 interface Course {
     courseID: number;
     courseName: string;
@@ -28,73 +23,115 @@ const IsAttendingContent: React.FC = () => {
     const [courses, setCourses] = useState<Course[]>([]);
     const [selectedCourseId, setSelectedCourseId] = useState<number | null>(null);
 
-    // Fetch all users with faculty info on mount
     useEffect(() => {
-    const fetchUsers = async () => {
-        const res = await fetch('http://localhost:8080/api/users');
-        const data = await res.json();
-        setUsers(data);
+        const fetchUsers = async () => {
+            try {
+                const token = localStorage.getItem('token');
+                const response = await fetch('http://localhost:8080/api/users', {
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json',
+                    },
+                });
+
+                if (!response.ok) throw new Error('Failed to fetch users');
+                const data = await response.json();
+                setUsers(data);
+            } catch (error) {
+                console.error('Error fetching users:', error);
+            }
         };
         fetchUsers();
     }, []);
 
-  // Kad se promijeni user, pronađi faculty i sve courses s tog fakulteta
     useEffect(() => {
         const loadCoursesForFaculty = async () => {
-        if (!selectedUserId) {
-            setFaculty(null);
-            setCourses([]);
-            return;
-        }
-        const user = users.find(u => u.userID === selectedUserId);
-        if (!user) {
-            setFaculty(null);
-            setCourses([]);
-            return;
-        }
-        setFaculty(user.faculty);
+            try {
+                if (!selectedUserId) {
+                    setFaculty(null);
+                    setCourses([]);
+                    return;
+                }
+                const user = users.find(u => u.userID === selectedUserId);
+                if (!user) {
+                    setFaculty(null);
+                    setCourses([]);
+                    return;
+                }
+                setFaculty(user.faculty);
 
-        const yearsRes = await fetch(`http://localhost:8080/api/academic-years/faculty/${user.faculty.facultyID}`);
-        const yearsData: AcademicYear[] = await yearsRes.json();
+                const token = localStorage.getItem('token');
+                const yearsRes = await fetch(
+                    `http://localhost:8080/api/academic-years/faculty/${user.faculty.facultyID}`,
+                    {
+                        headers: {
+                            'Authorization': `Bearer ${token}`,
+                            'Content-Type': 'application/json',
+                        },
+                    }
+                );
+                if (!yearsRes.ok) throw new Error('Failed to fetch academic years');
+                const yearsData = await yearsRes.json();
 
-        let allCourses: Course[] = [];
-        for (const year of yearsData) {
-            const coursesRes = await fetch(`http://localhost:8080/api/courses/academic-year/${year.acYrID}`);
-            const coursesData: Course[] = await coursesRes.json();
-            allCourses = allCourses.concat(coursesData);
-        }
-        setCourses(allCourses);
+                let allCourses: Course[] = [];
+                for (const year of yearsData) {
+                    const coursesRes = await fetch(
+                        `http://localhost:8080/api/courses/academic-year/${year.acYrID}`,
+                        {
+                            headers: {
+                                'Authorization': `Bearer ${token}`,
+                                'Content-Type': 'application/json',
+                            },
+                        }
+                    );
+                    if (!coursesRes.ok) throw new Error('Failed to fetch courses for academic year ' + year.acYrID);
+                    const coursesData = await coursesRes.json();
+                    allCourses = allCourses.concat(coursesData);
+                }
+                setCourses(allCourses);
+            } catch (error) {
+                console.error('Error loading courses for faculty:', error);
+            }
         };
         loadCoursesForFaculty();
     }, [selectedUserId, users]);
 
+
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+
         if (!selectedUserId || !selectedCourseId) {
-        alert('Please select both user and course.');
-        return;
+            alert('Please select both user and course.');
+            return;
         }
+
         const isAttending = {
-        user: { userID: selectedUserId },
-        course: { courseID: selectedCourseId }
+            user: { userID: selectedUserId },
+            course: { courseID: selectedCourseId }
         };
+
         try {
-        const res = await fetch('http://localhost:8080/api/is-attending', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(isAttending)
-        });
-        if (res.ok) {
-            alert('Saved!');
-            setSelectedUserId(null);
-            setFaculty(null);
-            setCourses([]);
-            setSelectedCourseId(null);
-        } else {
-            alert('Save failed.');
-        }
+            const token = localStorage.getItem('token');
+            const res = await fetch('http://localhost:8080/api/is-attending', {
+                method: 'POST',
+                headers: { 
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify(isAttending)
+            });
+
+            if (res.ok) {
+                alert('Saved!');
+                setSelectedUserId(null);
+                setFaculty(null);
+                setCourses([]);
+                setSelectedCourseId(null);
+            } else {
+                alert('Save failed.');
+            }
         } catch {
-        alert('Network error.');
+            alert('Network error.');
         }
     };
 

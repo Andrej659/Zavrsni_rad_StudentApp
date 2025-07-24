@@ -5,7 +5,7 @@ import FacultiesAdminContent from './adminComponents/FacultiesAdminContent';
 import AcademicYearAdminContent from './adminComponents/AcademicYearAdminContent';
 import CoursesAdminContent from './adminComponents/CoursesAdminContent';
 import EventsAdminContent from './adminComponents/EventsAdminContent';
-import IsAttendingAdminContent from './adminComponents/isAttendingAdminContent';
+import IsAttendingAdminContent from './adminComponents/IsAttendingAdminContent';
 
 interface Props {
   section: 'Users' | 'Faculties' | 'AcademicYear' | 'Courses' | 'Events' | 'IsAttending';

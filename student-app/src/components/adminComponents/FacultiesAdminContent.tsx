@@ -13,10 +13,12 @@ const FacultiesContent: React.FC = () => {
     }
 
     try {
+      const token = localStorage.getItem('token');
       const response = await fetch('http://localhost:8080/api/faculties', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
         },
         body: JSON.stringify({ facultyName: facultyName }),
       });
@@ -26,7 +28,7 @@ const FacultiesContent: React.FC = () => {
       }
 
       const data = await response.json();
-      alert(`Faculty "${data.name}" added!`);
+      alert(`Faculty "${data.facultyName}" added!`);
       setFacultyName('');
       
     } catch (error) {

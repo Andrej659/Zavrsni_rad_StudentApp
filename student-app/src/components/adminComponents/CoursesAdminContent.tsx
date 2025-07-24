@@ -19,78 +19,106 @@ const CoursesAdminContent: React.FC = () => {
 
 
     useEffect(() => {
-    const fetchFaculties = async () => {
-        try {
-            const response = await fetch('http://localhost:8080/api/faculties');
+
+        const fetchFaculties = async () => {
+            try {
+
+            const token = localStorage.getItem('token');
+
+            const response = await fetch('http://localhost:8080/api/faculties', {
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json',
+                },
+            });
+
+            if (!response.ok) throw new Error('Failed to fetch faculties');
             const data = await response.json();
             setFaculties(data);
-        } catch (error) {
-            console.error('Error fetching faculties:', error);
-        }
-    };
-    fetchFaculties();
+
+            } catch (error) {
+                console.error('Error fetching faculties:', error);
+            }
+        };
+        fetchFaculties();
     }, []);
 
-  // Kad se promijeni fakultet, dohvatiti akademske godine za taj faks
     useEffect(() => {
-    const fetchAcademicYears = async () => {
-        if (selectedFacultyId === null) {
-        setAcademicYears([]);
-        return;
-        }
-        try {
-            const response = await fetch(`http://localhost:8080/api/academic-years/faculty/${selectedFacultyId}`);
-            const data = await response.json();
-            setAcademicYears(data);
-        } catch (error) {
-            console.error('Error fetching academic years:', error);
+
+        const fetchAcademicYears = async () => {
+            if (selectedFacultyId === null) {
             setAcademicYears([]);
-        }
-    };
-    fetchAcademicYears();
+            return;
+            }
+            try {
+
+                const token = localStorage.getItem('token');
+                
+                const response = await fetch(`http://localhost:8080/api/academic-years/faculty/${selectedFacultyId}`, {
+                    headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json',
+                },
+            });
+
+            if (!response.ok) throw new Error('Failed to fetch faculties');
+                const data = await response.json();
+                setAcademicYears(data);
+            } catch (error) {
+                console.error('Error fetching academic years:', error);
+                setAcademicYears([]);
+            }
+        };
+        fetchAcademicYears();
     }, [selectedFacultyId]);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
-    if (!courseName || selectedFacultyId === null || selectedYearId === null) {
-        alert('Please fill in all fields.');
-    return;
-    }
-
-const course = {
-    courseName: courseName,
-    academicYear: {
-        acYrID: selectedYearId
+        if (!courseName || selectedFacultyId === null || selectedYearId === null) {
+            alert('Please fill in all fields.');
+        return;
         }
-    };
 
-    console.log(
-        course
-    );
-    
+    const course = {
+        courseName: courseName,
+        academicYear: {
+            acYrID: selectedYearId
+            }
+        };
 
-    try {
-        const response = await fetch('http://localhost:8080/api/courses', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(course),
-        });
+        console.log(
+            course
+        );
+        
 
-        if (response.ok) {
-            alert('Course added successfully!');
-            setCourseName('');
-            setSelectedFacultyId(null);
-            setSelectedYearId(null);
-            setAcademicYears([]);
-        } else {
-            const msg = await response.text();
-            console.error('Server error:', msg);
-            alert('Failed to add course.');
-        }
+        try {
+            
+            const token = localStorage.getItem('token');
+
+            const response = await fetch('http://localhost:8080/api/courses', {
+                method: 'POST',
+                headers: { 
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify(course),
+            });
+
+            if (response.ok) {
+                alert('Course added successfully!');
+                setCourseName('');
+                setSelectedFacultyId(null);
+                setSelectedYearId(null);
+                setAcademicYears([]);
+            } else {
+                const msg = await response.text();
+                console.error('Server error:', msg);
+                alert('Failed to add course.');
+            }
         } catch (error) {
-        console.error('Submit error:', error);
-        alert('Network error.');
+            console.error('Submit error:', error);
+            alert('Network error.');
         }
     };
 

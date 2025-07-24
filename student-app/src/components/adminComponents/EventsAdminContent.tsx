@@ -29,81 +29,128 @@ const EventsAdminContent: React.FC = () => {
     // Fetch faculties on load
     useEffect(() => {
         const fetchFaculties = async () => {
-        const res = await fetch('http://localhost:8080/api/faculties');
-        const data = await res.json();
-        setFaculties(data);
+            try {
+    
+            const token = localStorage.getItem('token');
+    
+            const response = await fetch('http://localhost:8080/api/faculties', {
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json',
+                },
+            });
+    
+                if (!response.ok) throw new Error('Failed to fetch faculties');
+                const data = await response.json();
+                setFaculties(data);
+    
+            } catch (error) {
+                console.error('Error fetching faculties:', error);
+            }
         };
-    fetchFaculties();
+        fetchFaculties();
     }, []);
+    
 
   // Fetch academic years after faculty selected
     useEffect(() => {
-    if (!selectedFacultyId) {
-        setAcademicYears([]);
-        return;
-    }
-    const fetchYears = async () => {
-        const res = await fetch(`http://localhost:8080/api/academic-years/faculty/${selectedFacultyId}`);
-        const data = await res.json();
-        setAcademicYears(data);
+        if (!selectedFacultyId) {
+            setAcademicYears([]);
+            return;
+        }
+        const fetchYears = async () => {
+            try{
+
+                const token = localStorage.getItem('token');
+                const res = await fetch(`http://localhost:8080/api/academic-years/faculty/${selectedFacultyId}`, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json',
+                    },
+                });
+
+                if (!res.ok) throw new Error('Failed to fetch academic years');
+                const data = await res.json();
+                setAcademicYears(data);
+            } catch(error){
+                console.error('Error fetching academic years:', error);
+            }
         };
-    fetchYears();
+        fetchYears();
     }, [selectedFacultyId]);
 
-  // Fetch courses after academic year selected
+
     useEffect(() => {
         if (!selectedYearId) {
             setCourses([]);
             return;
         }
+
         const fetchCourses = async () => {
-        const res = await fetch(`http://localhost:8080/api/courses/academic-year/${selectedYearId}`);
-        const data = await res.json();
-        setCourses(data);
+            try {
+                const token = localStorage.getItem('token');
+                const response = await fetch(`http://localhost:8080/api/courses/academic-year/${selectedYearId}`, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json',
+                    },
+                });
+
+                if (!response.ok) throw new Error('Failed to fetch courses');
+                const data = await response.json();
+                setCourses(data);
+            } catch (error) {
+                console.error('Error fetching courses:', error);
+            }
         };
-    fetchCourses();
+
+        fetchCourses();
     }, [selectedYearId]);
 
-  // Submit
+
     const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+        e.preventDefault();
 
-    if (!eventName || !eventDate || !selectedCourseId) {
-        alert('Please fill in all fields.');
-        return;
-    }
-
-    const event = {
-        eventName,
-        eventDate,
-        course: { courseID: selectedCourseId },
-    };
-    console.log('Submitting event:', event);
-
-    try {
-        const res = await fetch('http://localhost:8080/api/events', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(event),
-        });
-
-        if (res.ok) {
-            alert('Event added successfully!');
-            setEventName('');
-            setEventDate('');
-            setSelectedFacultyId(null);
-            setSelectedYearId(null);
-            setSelectedCourseId(null);
-            setAcademicYears([]);
-            setCourses([]);
-        } else {
-            const msg = await res.text();
-            console.error('Server error:', msg);
-            alert('Failed to add event.');
+        if (!eventName || !eventDate || !selectedCourseId) {
+            alert('Please fill in all fields.');
+            return;
         }
+
+        const event = {
+            eventName,
+            eventDate,
+            course: { courseID: selectedCourseId },
+        };
+
+        try {
+
+            const token = localStorage.getItem('token');
+            const res = await fetch('http://localhost:8080/api/events', {
+                method: 'POST',
+                headers: { 
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify(event),
+            });
+
+            if (res.ok) {
+                alert('Event added successfully!');
+                setEventName('');
+                setEventDate('');
+                setSelectedFacultyId(null);
+                setSelectedYearId(null);
+                setSelectedCourseId(null);
+                setAcademicYears([]);
+                setCourses([]);
+            } else {
+                const msg = await res.text();
+                console.error('Server error:', msg);
+                alert('Failed to add event.');
+            }
         } catch (err) {
-        console.error('Submit error:', err);
-        alert('Network error.');
+            console.error('Submit error:', err);
+            alert('Network error.');
         }
     };
 

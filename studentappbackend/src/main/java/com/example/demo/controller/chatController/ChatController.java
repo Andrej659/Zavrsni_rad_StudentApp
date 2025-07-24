@@ -4,7 +4,7 @@ import com.example.demo.models.entities.AcademicYear;
 import com.example.demo.models.entities.ChatMessage;
 import com.example.demo.models.entities.Message;
 import com.example.demo.models.entities.User;
-import com.example.demo.controller.dbControllers.AcademicYrService;
+import com.example.demo.services.AcademicYrService;
 import com.example.demo.services.MessageService;
 import com.example.demo.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -11,7 +11,6 @@ import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
 
-@CrossOrigin(origins = "http://localhost:5173")
 @RestController
 @RequestMapping("/api/messages")
 public class MessageController {

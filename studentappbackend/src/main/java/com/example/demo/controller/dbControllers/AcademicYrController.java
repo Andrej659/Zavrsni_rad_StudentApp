@@ -1,6 +1,7 @@
 package com.example.demo.controller.dbControllers;
 
 import com.example.demo.models.entities.AcademicYear;
+import com.example.demo.services.AcademicYrService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -9,7 +10,6 @@ import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
-@CrossOrigin(origins = "http://localhost:5173")
 @RestController
 @RequestMapping("/api/academic-years")
 public class AcademicYrController {

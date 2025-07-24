@@ -12,58 +12,74 @@ const AcademicYearAdminContent: React.FC = () => {
 
   // Dohvati fakultete
     useEffect(() => {
-    const fetchFaculties = async () => {
-        try {
-            const response = await fetch('http://localhost:8080/api/faculties');
-            const data = await response.json();
-        setFaculties(data);
-        } catch (error) {
-            console.error('Error fetching faculties:', error);
-        }
-    };
+        const fetchFaculties = async () => {
+            try {
 
-    fetchFaculties();
+            const token = localStorage.getItem('token');
+
+            const response = await fetch('http://localhost:8080/api/faculties', {
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json',
+                },
+            });
+
+            if (!response.ok) throw new Error('Failed to fetch faculties');
+            const data = await response.json();
+            setFaculties(data);
+
+            } catch (error) {
+                console.error('Error fetching faculties:', error);
+            }
+        };
+
+        fetchFaculties();
     }, []);
 
-  // Submit funkcija
-    const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
 
-    if (!acYrName || selectedFacultyId === null) {
-        alert('Please enter year name and select faculty.');
-        return;
-    }
+        const handleSubmit = async (e: React.FormEvent) => {
+            e.preventDefault();
 
-    const academicYear = {
-        acYrName: acYrName,
-        faculty: {
-        facultyID: selectedFacultyId,
-        },
-    };
+            if (!acYrName || selectedFacultyId === null) {
+                alert('Please enter year name and select faculty.');
+                return;
+            }
+
+            const academicYear = {
+                acYrName: acYrName,
+                faculty: {
+                facultyID: selectedFacultyId,
+                },
+            };
 
 
-    try {
-        const response = await fetch('http://localhost:8080/api/academic-years', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(academicYear),
-        });
+            try {
 
-        if (response.ok) {
-            alert('Academic year added successfully!');
-            setAcYrName('');
-            setSelectedFacultyId(null);
-        } else {
-            console.error('Server error:', await response.text());
-            alert('Failed to add academic year.');
-        }
-    } catch (error) {
-        console.error('Error submitting academic year:', error);
-        alert('Network error.');
-    }
-};
+                const token = localStorage.getItem('token');
+
+                const response = await fetch('http://localhost:8080/api/academic-years', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`,
+                },
+                body: JSON.stringify(academicYear),
+                });
+
+                if (response.ok) {
+                    alert('Academic year added successfully!');
+                    setAcYrName('');
+                    setSelectedFacultyId(null);
+                } else {
+                    console.error('Server error:', await response.text());
+                    alert('Failed to add academic year.');
+                }
+
+            } catch (error) {
+                console.error('Error submitting academic year:', error);
+                alert('Network error.');
+            }
+        };
 
     return (
         <div className="content-box">
@@ -95,7 +111,7 @@ const AcademicYearAdminContent: React.FC = () => {
 
         <button type="submit" className="add-btn">Add Academic Year</button>
         </form>
-    </div>
+        </div>
     );
 };
 
