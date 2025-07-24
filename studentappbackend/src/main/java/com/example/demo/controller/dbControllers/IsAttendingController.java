@@ -1,6 +1,5 @@
-package com.example.demo.controller;
+package com.example.demo.controller.dbControllers;
 
-import com.example.demo.models.entities.Faculty;
 import com.example.demo.models.entities.IsAttending;
 import com.example.demo.models.entities.IsAttendingId;
 import com.example.demo.services.isAttendingService;

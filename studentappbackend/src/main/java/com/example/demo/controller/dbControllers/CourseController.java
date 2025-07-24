@@ -1,6 +1,5 @@
-package com.example.demo.controller;
+package com.example.demo.controller.dbControllers;
 
-import com.example.demo.models.entities.AcademicYear;
 import com.example.demo.models.entities.Course;
 import com.example.demo.services.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;

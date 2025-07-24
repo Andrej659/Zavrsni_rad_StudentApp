@@ -6,7 +6,7 @@ import '../css/HomePage.css';
 
 const AdminPage: React.FC = () => {
   const [activeSection, setActiveSection] = useState<
-    'Users' | 'Faculties' | 'AcademicYear' | 'Courses' | 'Events' | 'Documents'
+    'Users' | 'Faculties' | 'AcademicYear' | 'Courses' | 'Events' | 'IsAttending'
   >('Users');
 
   const navigate = useNavigate();

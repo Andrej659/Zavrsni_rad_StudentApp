@@ -2,9 +2,9 @@ import React from 'react';
 import '../css/SideMenu.css'; // koristi isti CSS kao user SideMenu
 
 interface Props {
-  activeSection: 'Users' | 'Faculties' | 'AcademicYear' | 'Courses' | 'Events' | 'Documents';
+  activeSection: 'Users' | 'Faculties' | 'AcademicYear' | 'Courses' | 'Events' | 'IsAttending';
   onChangeSection: (
-    section: 'Users' | 'Faculties' | 'AcademicYear' | 'Courses' | 'Events' | 'Documents'
+    section: 'Users' | 'Faculties' | 'AcademicYear' | 'Courses' | 'Events' | 'IsAttending'
   ) => void;
 }
 
@@ -15,7 +15,7 @@ const AdminSideMenu: React.FC<Props> = ({ activeSection, onChangeSection }) => {
     'AcademicYear',
     'Courses',
     'Events',
-    'Documents',
+    'IsAttending',
   ];
 
   return (

@@ -1,12 +1,7 @@
-package com.example.demo.controller;
+package com.example.demo.controller.dbControllers;
 
 import com.example.demo.models.entities.AcademicYear;
-import com.example.demo.models.entities.Faculty;
-import com.example.demo.models.entities.User;
-import com.example.demo.services.AcademicYrService;
-import com.example.demo.services.FacultyService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

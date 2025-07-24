@@ -1,7 +1,5 @@
-package com.example.demo.controller;
+package com.example.demo.controller.dbControllers;
 
-
-import com.example.demo.models.entities.Faculty;
 import com.example.demo.models.entities.Message;
 import com.example.demo.services.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +17,7 @@ import java.util.Optional;
 public class MessageController {
 
     private final MessageService messageService;
+
 
     @Autowired
     public MessageController(MessageService messageService) {

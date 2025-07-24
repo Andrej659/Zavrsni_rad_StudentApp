@@ -1,5 +1,6 @@
 package com.example.demo.models.entities;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 
 import java.util.Date;
@@ -16,6 +17,7 @@ public class Event {
     @Column(name = "eventname", nullable = false, length = 30)
     private String eventName;
 
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm", timezone = "UTC")
     @Column(name = "eventdate", nullable = false)
     private Date eventDate;
 

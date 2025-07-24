@@ -1,7 +1,6 @@
-package com.example.demo.controller;
+package com.example.demo.controller.dbControllers;
 
 import com.example.demo.models.entities.Event;
-import com.example.demo.models.entities.Faculty;
 import com.example.demo.services.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

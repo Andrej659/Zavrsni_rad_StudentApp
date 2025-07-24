@@ -23,8 +23,8 @@ public class MessageService {
     }
 
     // Create or update
-    public Message save(Message document) {
-        return messageRepository.save(document);
+    public Message save(Message msg) {
+        return messageRepository.save(msg);
     }
 
     @Transactional(readOnly = true)

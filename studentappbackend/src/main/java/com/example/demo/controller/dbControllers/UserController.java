@@ -1,4 +1,4 @@
-package com.example.demo.controller;
+package com.example.demo.controller.dbControllers;
 
 import com.example.demo.models.entities.User;
 import com.example.demo.models.entities.Faculty;
