@@ -1,5 +1,6 @@
 package com.example.demo.controller.dbControllers;
 
+import com.example.demo.models.entities.Event;
 import com.example.demo.models.entities.Message;
 import com.example.demo.services.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,7 +56,7 @@ public class MessageController {
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @GetMapping
+    @GetMapping("/allMessages")
     public ResponseEntity<List<Message>> getAll() {
         List<Message> list = messageService.findAll();
         return ResponseEntity.ok(list);
@@ -94,5 +95,11 @@ public class MessageController {
         } catch (IllegalArgumentException ex) {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    @GetMapping()
+    public ResponseEntity<List<Message>> getByAcYrID(@RequestParam("yearId") Integer acYrID) {
+        List<Message> list = messageService.findByAcYr(acYrID);
+        return ResponseEntity.ok(list);
     }
 }

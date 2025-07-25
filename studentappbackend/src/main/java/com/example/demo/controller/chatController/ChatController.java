@@ -8,6 +8,7 @@ import com.example.demo.services.AcademicYrService;
 import com.example.demo.services.MessageService;
 import com.example.demo.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
@@ -30,9 +31,19 @@ public class ChatController {
         this.academicYearService = academicYearService;
     }
 
-    @MessageMapping("/send")
-    @SendTo("/topic/messages")
-    public Message handleIncomingMessage(ChatMessage dto) {
+    @MessageMapping("/send/{yearId}")
+    @SendTo("/topic/messages/{yearId}")
+    public ChatMessage handleIncomingMessage(
+            @DestinationVariable("yearId") Integer yearId,
+            ChatMessage dto
+    ) {
+
+        System.out.println(yearId);
+        System.out.println(dto.getUserId());
+        System.out.println(dto.getAcademicYearId());
+        System.out.println(dto.getMsgTimeSent());
+        System.out.println(dto.getMsgContent());
+
         Message message = new Message();
 
         message.setMsgContent(dto.getMsgContent());
@@ -47,7 +58,9 @@ public class ChatController {
         message.setUser(user);
         message.setAcademicYear(year);
 
-        return messageService.save(message);
+        messageService.save(message);
+
+        return dto;
     }
 }
 

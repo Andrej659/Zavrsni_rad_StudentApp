@@ -49,6 +49,11 @@ public class MessageService {
         return messageRepository.findByMsgTimeSent(date);
     }
 
+    @Transactional(readOnly = true)
+    public List<Message> findByAcYr(Integer acYrID) {
+        return messageRepository.findByAcademicYear_AcYrID(acYrID);
+    }
+
 
     // Delete by ID
     public void deleteById(Integer id) {

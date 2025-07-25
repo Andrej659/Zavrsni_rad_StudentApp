@@ -4,18 +4,18 @@ import ChatBox from '../components/ChatBox';
 
 interface Props {
   section: 'Chat' | 'Calendar' | 'Documents';
-  year: number;
+  academicYearId: number | null;
 }
 
-const MainContent: React.FC<Props> = ({ section, year }) => {
-  return (
-    <div className="main-content">
-      <h2>{section} - {year}. Year</h2>
-      <div className="content-box">
-        {section === 'Chat' && <ChatBox />}
-      </div>
+const MainContent: React.FC<Props> = ({ section, academicYearId }) => (
+  <div className="main-content">
+    <div className="content-box">
+      {section === 'Chat' && academicYearId && <ChatBox academicYearId={academicYearId} />}
+      {/* {section === 'Calendar' && ...} */}
+      {/* {section === 'Documents' && ...} */}
     </div>
-  );
-};
+  </div>
+);
 
 export default MainContent;
+

@@ -1,10 +1,13 @@
 package com.example.demo.models.entities;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 
 public class ChatMessage {
 
     private String msgContent;
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm", timezone = "UTC")
     private Date msgTimeSent;
     private Integer userId;
     private Integer academicYearId;

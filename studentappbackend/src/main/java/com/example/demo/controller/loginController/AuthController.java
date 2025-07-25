@@ -23,9 +23,8 @@ public class AuthController {
 
         if (userOpt.isPresent() && userOpt.get().getPassword().equals(request.getPassword())) {
             User user = userOpt.get();
-            String token = JwtUtil.generateToken(user.getUsername());
+            String token = JwtUtil.generateToken(user.getUsername(), user.getUserID());
             Integer role = user.getIsAdmin();
-            System.out.println(role);
             return ResponseEntity.ok(new AuthResponse(token, role));
         } else {
             return ResponseEntity.status(401).body("Invalid credentials");

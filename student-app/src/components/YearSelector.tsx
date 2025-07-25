@@ -1,25 +1,34 @@
 import React from 'react';
 import '../css/YearSelector.css';
 
-interface Props {
-  selectedYear: number;
-  onSelectYear: (year: number) => void;
+interface AcademicYear {
+  acYrID : number;
+  acYrName : string;
 }
 
-const YearSelector: React.FC<Props> = ({ selectedYear, onSelectYear }) => {
-  return (
-    <div className="year-selector">
-      {[1, 2, 3].map((year) => (
-        <button
-          key={year}
-          className={selectedYear === year ? 'active' : ''}
-          onClick={() => onSelectYear(year)}
-        >
-          {year}. Year
-        </button>
-      ))}
-    </div>
-  );
-};
+interface Props {
+  academicYears: AcademicYear[];
+  selectedAcademicYearId: number | null;
+  onSelectAcademicYear: (id: number) => void;
+}
+
+const YearSelector: React.FC<Props> = ({
+  academicYears,
+  selectedAcademicYearId,
+  onSelectAcademicYear
+}) => (
+  <div className="year-selector">
+    {academicYears.map((year) => (
+      <button
+        key={year.acYrID}
+        className={selectedAcademicYearId === year.acYrID ? 'active' : ''}
+        onClick={() => onSelectAcademicYear(year.acYrID)}
+      >
+        {year.acYrName}
+      </button>
+    ))}
+  </div>
+);
 
 export default YearSelector;
+

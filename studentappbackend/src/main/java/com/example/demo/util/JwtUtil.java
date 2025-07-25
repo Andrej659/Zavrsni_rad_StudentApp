@@ -17,9 +17,10 @@ public class JwtUtil {
     // Generate the key once and paste it in as a base64 string, or load from env variable
     private static final SecretKey KEY = Keys.secretKeyFor(SignatureAlgorithm.HS256);
 
-    public static String generateToken(String username) {
+    public static String generateToken(String username, Integer userId) {
         return Jwts.builder()
                 .setSubject(username)
+                .claim("userID", userId)
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60))
                 .signWith(KEY)
