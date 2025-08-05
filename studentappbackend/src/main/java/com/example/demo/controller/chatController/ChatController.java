@@ -38,12 +38,6 @@ public class ChatController {
             ChatMessage dto
     ) {
 
-        System.out.println(yearId);
-        System.out.println(dto.getUserId());
-        System.out.println(dto.getAcademicYearId());
-        System.out.println(dto.getMsgTimeSent());
-        System.out.println(dto.getMsgContent());
-
         Message message = new Message();
 
         message.setMsgContent(dto.getMsgContent());

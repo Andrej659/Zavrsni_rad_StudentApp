@@ -1,7 +1,19 @@
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.home-container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
 .main-header {
   width: 100%;
-  height: 100px; /* << OVDJE postaviš visinu headera kako želiš */
-  background-color: #003366; /* tamnoplava */
+  height: 100px; /* Mora biti jednako margin-top u content-wrapper! */
+  background-color: #003366;
   color: white;
   display: flex;
   justify-content: space-between;
@@ -13,6 +25,20 @@
   left: 0;
   z-index: 100;
 }
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+.logo {
+  margin: 0;
+  font-size: 40px;
+  font-weight: bold;
+}
+.logo-white { color: white; }
+.logo-orange { color: #FFA500; }
 
 .year-options {
   display: flex;
@@ -32,39 +58,19 @@
   color: white;
   border-radius: 6px;
   cursor: pointer;
+  transition: background 0.2s;
 }
 
-.header-btn.logout {
-  border-color: #ff4d4d;
-}
+.header-btn.logout { border-color: #ff4d4d; }
+.header-btn:hover { background-color: rgba(255, 255, 255, 0.1); }
+.header-btn.logout:hover { background: #c93030; color: #fff; }
 
-.header-btn:hover {
-  background-color: rgba(255, 255, 255, 0.1);
-}
 
 .content-wrapper {
   display: flex;
-  margin-top: 80px; /* << MORA odgovarati visini headera */
-  min-height: calc(100vh - 80px);
+  flex: 1 1 0;
+  margin-top: 100px;             
+  min-height: 0;
+  height: calc(100vh - 100px);  
+  overflow: hidden;
 }
-
-.header-left {
-  display: flex;
-  align-items: center;
-  gap: 30px;
-}
-
-.logo {
-  margin: 0;
-  font-size: 40px;
-  font-weight: bold;
-}
-
-.logo-white {
-  color: white;
-}
-
-.logo-orange {
-  color: #FFA500; /* narančasta */
-}
-

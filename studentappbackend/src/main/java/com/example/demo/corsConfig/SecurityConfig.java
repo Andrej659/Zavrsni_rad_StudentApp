@@ -19,7 +19,7 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/login", "/api/auth/**", "/chat/**").permitAll()
+                        .requestMatchers("/api/login", "/api/auth/**", "/chat/**", "/api/faculties/**", "/api/users").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form.disable())

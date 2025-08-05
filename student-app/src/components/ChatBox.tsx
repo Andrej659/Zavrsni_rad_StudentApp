@@ -128,7 +128,6 @@ const ChatBox: React.FC<Props> = ({ academicYearId }) => {
       body: JSON.stringify(messageDTO),
     });
     setMessageInput('');
-    // NEMA lokalnog dodavanja poruke, backend šalje kroz websocket, onda se refresha lista!
   };
 
   return (

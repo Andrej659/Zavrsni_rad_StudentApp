@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import YearSelector from '../components/YearSelector';
 import SideMenu from '../components/SideMenu';
 import MainContent from '../components/MainContent';
@@ -39,8 +40,12 @@ const HomePage: React.FC = () => {
     })
       .then(user => {
         const facultyId = user.faculty?.facultyID;
-        console.log(facultyId)
-        if (!facultyId) return;
+        if (facultyId) {
+          localStorage.setItem("facultyId", facultyId);
+        }else {
+          console.error("Faculty ID not found in user data");
+          return;
+        }
 
         // Fetch academic years za faculty
         fetch(`http://localhost:8080/api/academic-years/faculty/${facultyId}`, {
@@ -59,6 +64,18 @@ const HomePage: React.FC = () => {
       });
   }, []);
 
+    const navigate = useNavigate();
+
+    const handleLogout = () => {
+      localStorage.removeItem('token');
+      navigate('/');
+    };
+
+    const handleProfile = () => {
+      navigate('/profile');
+    };
+
+
   return (
     <div className="home-container">
       <header className="main-header">
@@ -73,7 +90,10 @@ const HomePage: React.FC = () => {
             onSelectAcademicYear={setSelectedAcademicYearId}
           />
         </div>
-        {/* Dodaj header actions po potrebi */}
+        <div className="header-actions">
+          <button className="header-btn" onClick={handleProfile}>Profile</button>
+          <button className="header-btn logout" onClick={handleLogout}>Logout</button>
+        </div>
       </header>
 
       <div className="content-wrapper">

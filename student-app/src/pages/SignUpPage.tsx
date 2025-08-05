@@ -10,7 +10,7 @@ const SignUpPage: React.FC = () => {
     <div className="signup-page">
       <div className="signup-box">
         <h2>Sign Up</h2>
-        <SignUpForm onSuccess={() => navigate('/home')} />
+        <SignUpForm onSuccess={() => navigate('/')} />
         <div className="login-redirect">
           <p>Already have an account?</p>
           <button onClick={() => navigate('/')}>Log in</button>
