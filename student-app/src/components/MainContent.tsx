@@ -3,9 +3,10 @@ import "../css/MainContent.css";
 import ChatBox from "./sidemenuComponents/ChatBox";
 import CalendarContent from "./sidemenuComponents/CalendarContent";
 import DocumentsContent from "./sidemenuComponents/DocumentContent";
+import EventsContent from "./sidemenuComponents/EventsContent";
 
 interface Props {
-  section: "Chat" | "Calendar" | "Documents";
+  section: "Chat" | "Calendar" | "Documents" | "Events";
   academicYearId: number | null;
 }
 
@@ -17,6 +18,7 @@ const MainContent: React.FC<Props> = ({ section, academicYearId }) => (
       )}
       {section === "Calendar" && <CalendarContent />}
       {section === "Documents" && <DocumentsContent />}
+      {section === "Events" && <EventsContent />}
     </div>
   </div>
 );

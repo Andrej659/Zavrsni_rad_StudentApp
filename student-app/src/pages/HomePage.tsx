@@ -16,7 +16,7 @@ const HomePage: React.FC = () => {
     number | null
   >(null);
   const [activeSection, setActiveSection] = useState<
-    "Chat" | "Calendar" | "Documents"
+    "Chat" | "Calendar" | "Documents"  | "Events"
   >("Chat");
 
   useEffect(() => {

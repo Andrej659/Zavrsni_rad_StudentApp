@@ -1,23 +1,23 @@
 import React, { useEffect, useState, useMemo } from "react";
 
-type Course = {
+interface Course {
   courseID: number;
   courseName: string;
   academicYear: { acYrID: number; acYrName: string };
-};
+}
 
-type User = {
+interface User {
   userID: number;
   username: string;
-};
+}
 
-type DocumentType = {
+interface DocumentType {
   docID: number;
   docName: string;
   filePath: string;
   user: User;
   course: Course;
-};
+}
 
 const DocumentsContent: React.FC = () => {
   const [allCourses, setAllCourses] = useState<Course[]>([]);
@@ -121,7 +121,21 @@ const DocumentsContent: React.FC = () => {
   }
 
   const handleUpload = async () => {
-    if (!selectedFile || !selectedCourseId) return;
+    if (!selectedFile) {
+      alert("Molimo odaberite datoteku prije objave.");
+      return;
+    }
+
+    if (!selectedCourseId || selectedCourseId === null) {
+      alert("Molimo odaberite predmet prije objave.");
+      return;
+    }
+
+    if (selectedFile.name.trim().length === 0) {
+      alert("Naziv datoteke nije valjan.");
+      return;
+    }
+
     setUploading(true);
     try {
       const token = localStorage.getItem("token");
@@ -158,35 +172,36 @@ const DocumentsContent: React.FC = () => {
   };
 
   const handleDownload = async (docId: number, docName: string) => {
-  try {
-    const token = localStorage.getItem("token");
+    try {
+      const token = localStorage.getItem("token");
 
-    console.log("Downloading document:", docId, docName);
-    const res = await fetch(`http://localhost:8080/api/documents/download/${docId}`, {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+      console.log("Downloading document:", docId, docName);
+      const res = await fetch(
+        `http://localhost:8080/api/documents/download/${docId}`,
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
-    console.log("Download response:", res);
-    if (!res.ok) throw new Error("Neuspješno preuzimanje dokumenta");
+      if (!res.ok) throw new Error("Neuspješno preuzimanje dokumenta");
 
-    const blob = await res.blob();
-    const url = window.URL.createObjectURL(blob);
+      const blob = await res.blob();
+      const url = window.URL.createObjectURL(blob);
 
-    const link = document.createElement("a");
-    link.href = url;
-    link.download = docName;
-    link.click();
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = docName;
+      link.click();
 
-    window.URL.revokeObjectURL(url);
-  } catch (error) {
-    console.error("Download error:", error);
-    alert("Greška pri preuzimanju dokumenta.");
-  }
-};
-
+      window.URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error("Download error:", error);
+      alert("Greška pri preuzimanju dokumenta.");
+    }
+  };
 
   return (
     <div style={{ display: "flex", gap: 40, alignItems: "flex-start" }}>
@@ -254,6 +269,7 @@ const DocumentsContent: React.FC = () => {
           </select>
         </div>
         <button
+          className="button"
           onClick={handleUpload}
           disabled={!selectedFile || !selectedCourseId || uploading}
           style={{
@@ -303,21 +319,23 @@ const DocumentsContent: React.FC = () => {
                 <tr key={d.docID}>
                   <td style={{ padding: 10 }}>{d.docName}</td>
                   <td style={{ padding: 10 }}>{d.course.courseName}</td>
-                  <td style={{ padding: 10 }}>{d.user.username}</td>
                   <td style={{ padding: 10 }}>
-                  <button
-                    onClick={() => handleDownload(d.docID, d.docName)}
-                    style={{
-                      color: "#1976d2",
-                      background: "none",
-                      border: "none",
-                      cursor: "pointer",
-                      textDecoration: "underline",
-                      fontWeight: "bold",
-                    }}
-                  >
-                    Download
-                  </button>
+                    {d.user.username.split("@")[0]}
+                  </td>
+                  <td style={{ padding: 10 }}>
+                    <button
+                      onClick={() => handleDownload(d.docID, d.docName)}
+                      style={{
+                        color: "#1976d2",
+                        background: "none",
+                        border: "none",
+                        cursor: "pointer",
+                        textDecoration: "underline",
+                        fontWeight: "bold",
+                      }}
+                    >
+                      Download
+                    </button>
                   </td>
                 </tr>
               ))}

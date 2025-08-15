@@ -1,19 +1,19 @@
-import React, { useEffect, useState, useRef } from 'react';
-import { Client } from '@stomp/stompjs';
-import SockJS from 'sockjs-client';
-import '../../css/ChatBox.css';
+import React, { useEffect, useState, useRef } from "react";
+import { Client } from "@stomp/stompjs";
+import SockJS from "sockjs-client";
+import "../../css/ChatBox.css";
 
-const WEBSOCKET_BASE = 'http://localhost:8080/chat';
+const WEBSOCKET_BASE = "http://localhost:8080/chat";
 
-interface User  {
+interface User {
   userID: number;
   username: string;
-};
+}
 
 interface Message {
   msgID: number;
   msgContent: string;
-  msgTimeSent: string; 
+  msgTimeSent: string;
   user: {
     userID: number;
     username: string;
@@ -21,17 +21,17 @@ interface Message {
   academicYear: {
     academicYearID: number;
   };
-};
+}
 
 interface Props {
   academicYearId: number;
-};
+}
 
 const getUserFromToken = (): User | null => {
   try {
     const token = localStorage.getItem("token");
     if (!token) return null;
-    const payload = JSON.parse(atob(token.split('.')[1]));
+    const payload = JSON.parse(atob(token.split(".")[1]));
     return {
       userID: payload.userID || payload.id,
       username: payload.username,
@@ -43,10 +43,10 @@ const getUserFromToken = (): User | null => {
 
 const ChatBox: React.FC<Props> = ({ academicYearId }) => {
   const [messages, setMessages] = useState<Message[]>([]);
-  const [messageInput, setMessageInput] = useState('');
+  const [messageInput, setMessageInput] = useState("");
   const clientRef = useRef<Client | null>(null);
   const [connected, setConnected] = useState(false);
-
+  const messagesEndRef = useRef<HTMLDivElement | null>(null);
   const loggedInUser = getUserFromToken();
 
   useEffect(() => {
@@ -55,16 +55,16 @@ const ChatBox: React.FC<Props> = ({ academicYearId }) => {
 
     fetch(`http://localhost:8080/api/messages?yearId=${academicYearId}`, {
       headers: {
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
       },
     })
-      .then(res => {
+      .then((res) => {
         if (!res.ok) throw new Error("Greška " + res.status);
         return res.json();
       })
-      .then(data => setMessages(data))
-      .catch(err => {
+      .then((data) => setMessages(data))
+      .catch((err) => {
         console.error("Ne mogu dohvatiti poruke:", err);
         setMessages([]);
       });
@@ -78,24 +78,23 @@ const ChatBox: React.FC<Props> = ({ academicYearId }) => {
       webSocketFactory: () => socket,
       onConnect: () => {
         setConnected(true);
-        client.subscribe(
-          `/topic/messages/${academicYearId}`,
-          message => {
-          
-            const fetchAllMessages = () => {
-              const token = localStorage.getItem("token");
-              fetch(`http://localhost:8080/api/messages?yearId=${academicYearId}`, {
+        client.subscribe(`/topic/messages/${academicYearId}`, (message) => {
+          const fetchAllMessages = () => {
+            const token = localStorage.getItem("token");
+            fetch(
+              `http://localhost:8080/api/messages?yearId=${academicYearId}`,
+              {
                 headers: {
-                  'Authorization': `Bearer ${token}`,
-                  'Content-Type': 'application/json',
+                  Authorization: `Bearer ${token}`,
+                  "Content-Type": "application/json",
                 },
-              })
-                .then(res => res.json())
-                .then(data => setMessages(data));
-            };
-            fetchAllMessages();
-          }
-        );
+              }
+            )
+              .then((res) => res.json())
+              .then((data) => setMessages(data));
+          };
+          fetchAllMessages();
+        });
       },
       onDisconnect: () => setConnected(false),
       debug: () => {},
@@ -124,15 +123,30 @@ const ChatBox: React.FC<Props> = ({ academicYearId }) => {
       destination: `/app/send/${academicYearId}`,
       body: JSON.stringify(messageDTO),
     });
-    setMessageInput('');
+    setMessageInput("");
   };
 
+  useEffect(() => {
+    if (messagesEndRef.current) {
+      messagesEndRef.current.scrollTop = messagesEndRef.current.scrollHeight;
+    }
+  }, [messages]);
+
   return (
-    <div style={{ maxWidth: 600, margin: '0 auto', padding: 20 }}>
-      <div style={{
-        minHeight: 400, maxHeight: 500, overflowY: 'auto',
-        border: '1px solid #ccc', borderRadius: 8, padding: 16, marginBottom: 12, background: "#fafbfc"
-      }}>
+    <div style={{ maxWidth: 600, margin: "0 auto", padding: 20 }}>
+      <div
+        ref={messagesEndRef}
+        style={{
+          minHeight: 400,
+          maxHeight: 500,
+          overflowY: "auto",
+          border: "1px solid #ccc",
+          borderRadius: 8,
+          padding: 16,
+          marginBottom: 12,
+          background: "#fafbfc",
+        }}
+      >
         {messages.map((msg, idx) => {
           // Sve poruke imaju user objekt!
           const isMine = msg.user.userID === loggedInUser?.userID;
@@ -140,8 +154,8 @@ const ChatBox: React.FC<Props> = ({ academicYearId }) => {
             <div
               key={msg.msgID ? `${msg.msgID}-${idx}` : `fallback-${idx}`}
               style={{
-                display: 'flex',
-                justifyContent: isMine ? 'flex-end' : 'flex-start',
+                display: "flex",
+                justifyContent: isMine ? "flex-end" : "flex-start",
                 marginBottom: 8,
               }}
             >
@@ -153,18 +167,28 @@ const ChatBox: React.FC<Props> = ({ academicYearId }) => {
               <div
                 style={{
                   maxWidth: 280,
-                  padding: '10px 16px',
+                  padding: "10px 16px",
                   borderRadius: 18,
-                  background: isMine ? '#DCF8C6' : '#F0F0F0',
+                  background: isMine ? "#DCF8C6" : "#F0F0F0",
                   color: isMine ? "#222" : "#333",
                   alignSelf: isMine ? "flex-end" : "flex-start",
-                  boxShadow: "0 2px 4px #0001"
+                  boxShadow: "0 2px 4px #0001",
                 }}
               >
                 {msg.msgContent}
-                <div style={{ fontSize: 11, color: "#888", marginTop: 4, textAlign: isMine ? "right" : "left" }}>
+                <div
+                  style={{
+                    fontSize: 11,
+                    color: "#888",
+                    marginTop: 4,
+                    textAlign: isMine ? "right" : "left",
+                  }}
+                >
                   {msg.msgTimeSent
-                    ? new Date(msg.msgTimeSent).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+                    ? new Date(msg.msgTimeSent).toLocaleTimeString([], {
+                        hour: "2-digit",
+                        minute: "2-digit",
+                      })
                     : ""}
                 </div>
               </div>
@@ -172,21 +196,30 @@ const ChatBox: React.FC<Props> = ({ academicYearId }) => {
           );
         })}
       </div>
-      <div style={{ display: 'flex', gap: 8 }}>
+      <div style={{ display: "flex", gap: 8 }}>
         <input
           type="text"
           value={messageInput}
-          onChange={e => setMessageInput(e.target.value)}
-          style={{ flex: 1, padding: 10, borderRadius: 12, border: "1px solid #bbb" }}
+          onChange={(e) => setMessageInput(e.target.value)}
+          style={{
+            flex: 1,
+            padding: 10,
+            borderRadius: 12,
+            border: "1px solid #bbb",
+          }}
           placeholder="Upiši poruku..."
-          onKeyDown={e => e.key === 'Enter' && sendMessage()}
+          onKeyDown={(e) => e.key === "Enter" && sendMessage()}
           disabled={!connected}
         />
         <button
           onClick={sendMessage}
           style={{
-            padding: '8px 18px', borderRadius: 12, border: "none",
-            background: "#1464F4", color: "#fff", fontWeight: "bold"
+            padding: "8px 18px",
+            borderRadius: 12,
+            border: "none",
+            background: "#1464F4",
+            color: "#fff",
+            fontWeight: "bold",
           }}
           disabled={!connected}
         >

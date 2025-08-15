@@ -2,15 +2,16 @@ import React from "react";
 import "../css/SideMenu.css";
 
 interface Props {
-  activeSection: "Chat" | "Calendar" | "Documents";
-  onChangeSection: (section: "Chat" | "Calendar" | "Documents") => void;
+  activeSection: "Chat" | "Calendar" | "Documents" | "Events";
+  onChangeSection: (section: "Chat" | "Calendar" | "Documents" | "Events") => void;
 }
 
 const SideMenu: React.FC<Props> = ({ activeSection, onChangeSection }) => {
-  const sections: ("Chat" | "Calendar" | "Documents")[] = [
+  const sections: ("Chat" | "Calendar" | "Documents" | "Events")[] = [
     "Chat",
     "Calendar",
     "Documents",
+    "Events",
   ];
 
   return (

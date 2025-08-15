@@ -94,5 +94,4 @@ public class IsAttendingController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
     }
-
 }
