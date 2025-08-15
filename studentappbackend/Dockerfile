@@ -1,9 +1,8 @@
-# Koristi JDK 21 image
-FROM eclipse-temurin:21-jdk-alpine AS build
+FROM eclipse-temurin:21-jdk-alpine as build
 
 WORKDIR /app
 
-COPY studentappbackend /app
+COPY . .
 
 RUN ./mvnw clean package -DskipTests
 
