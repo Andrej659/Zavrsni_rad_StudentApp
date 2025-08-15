@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { Client } from '@stomp/stompjs';
 import SockJS from 'sockjs-client';
-import '../css/ChatBox.css';
+import '../../css/ChatBox.css';
 
 const WEBSOCKET_BASE = 'http://localhost:8080/chat';
 
@@ -49,7 +49,6 @@ const ChatBox: React.FC<Props> = ({ academicYearId }) => {
 
   const loggedInUser = getUserFromToken();
 
-  // Povuci SVE poruke iz backenda svaki put kad se promijeni akademska godina
   useEffect(() => {
     if (!academicYearId) return;
     const token = localStorage.getItem("token");
@@ -71,7 +70,6 @@ const ChatBox: React.FC<Props> = ({ academicYearId }) => {
       });
   }, [academicYearId]);
 
-  // WebSocket konekcija i subscribe na novu poruku
   useEffect(() => {
     if (!academicYearId) return;
 
@@ -112,7 +110,6 @@ const ChatBox: React.FC<Props> = ({ academicYearId }) => {
     };
   }, [academicYearId]);
 
-  // Slanje poruke → ništa se lokalno ne dodaje!
   const sendMessage = () => {
     if (!messageInput || !connected || !loggedInUser) return;
 

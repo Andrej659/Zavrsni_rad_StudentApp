@@ -14,7 +14,7 @@ public class Event {
     @Column(name = "eventid")
     private Integer eventID;
 
-    @Column(name = "eventname", nullable = false, length = 30)
+    @Column(name = "eventname", nullable = false, length = 50)
     private String eventName;
 
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm", timezone = "UTC")

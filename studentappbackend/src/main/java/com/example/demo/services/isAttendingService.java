@@ -47,4 +47,9 @@ public class isAttendingService {
         }
         isAttendingRepository.deleteById(id);
     }
+
+    public List<IsAttending> findByUserID(Integer userId) {
+        return isAttendingRepository.findById_UserID(userId);
+    }
+
 }

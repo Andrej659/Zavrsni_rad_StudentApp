@@ -11,7 +11,7 @@ public class Document {
     @Column(name = "docid")
     private Integer docID;
 
-    @Column(name = "docname", nullable = false, length = 30)
+    @Column(name = "docname", nullable = false, length = 50)
     private String docName;
 
     @Column(name = "doclocation", nullable = false, length = 100)
@@ -31,6 +31,12 @@ public class Document {
     public Document(String docname, String doclocation, User user, Course course) {
         this.docName = docname;
         this.docLocation = doclocation;
+        this.user = user;
+        this.course = course;
+    }
+
+    public Document(String docName, User user, Course course) {
+        this.docName = docName;
         this.user = user;
         this.course = course;
     }

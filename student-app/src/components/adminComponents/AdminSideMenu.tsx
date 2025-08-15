@@ -1,5 +1,5 @@
 import React from 'react';
-import '../css/SideMenu.css'; // koristi isti CSS kao user SideMenu
+import '../../css/SideMenu.css';
 
 interface Props {
   activeSection: 'Users' | 'Faculties' | 'AcademicYear' | 'Courses' | 'Events' | 'IsAttending';

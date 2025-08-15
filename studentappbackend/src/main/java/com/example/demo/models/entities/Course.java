@@ -13,7 +13,7 @@ public class Course {
     @Column(name = "courseid")
     private Integer courseID;
 
-    @Column(name = "coursename", nullable = false, length = 30)
+    @Column(name = "coursename", nullable = false, length = 50)
     private String courseName;
 
     @ManyToOne(fetch = FetchType.LAZY)

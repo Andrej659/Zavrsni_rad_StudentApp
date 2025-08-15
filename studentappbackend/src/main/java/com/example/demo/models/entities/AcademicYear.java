@@ -13,7 +13,7 @@ public class AcademicYear {
     @Column(name = "acyrid")
     private Integer acYrID;
 
-    @Column(name = "acyrname", nullable = false, length = 30)
+    @Column(name = "acyrname", nullable = false, length = 50)
     private String acYrName;
 
     @ManyToOne(fetch = FetchType.LAZY)

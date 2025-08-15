@@ -2,10 +2,15 @@ package com.example.demo.controller.dbControllers;
 
 import com.example.demo.models.entities.IsAttending;
 import com.example.demo.models.entities.IsAttendingId;
+import com.example.demo.models.entities.User;
+import com.example.demo.services.UserService;
 import com.example.demo.services.isAttendingService;
+import com.example.demo.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.net.URI;
 import java.util.List;
@@ -16,10 +21,12 @@ import java.util.Optional;
 public class IsAttendingController {
 
     private final isAttendingService isAttendingService;
+    private final UserService userService;
 
     @Autowired
-    public IsAttendingController(isAttendingService isAttendingService) {
+    public IsAttendingController(isAttendingService isAttendingService, UserService userService) {
         this.isAttendingService = isAttendingService;
+        this.userService = userService;
     }
 
     /**
@@ -28,7 +35,6 @@ public class IsAttendingController {
     @PostMapping
     public ResponseEntity<IsAttending> create(@RequestBody IsAttending isAttending) {
         IsAttending saved = isAttendingService.save(isAttending);
-        // Use both keys for URI
         return ResponseEntity
                 .created(URI.create("/api/is-attending/" + saved.getCourse().getCourseID()
                         + "/" + saved.getUser().getUserID()))
@@ -70,4 +76,23 @@ public class IsAttendingController {
             return ResponseEntity.notFound().build();
         }
     }
+
+    @GetMapping("/user")
+    public ResponseEntity<List<IsAttending>> getCoursesForLoggedInUser(
+            @RequestHeader("Authorization") String authHeader) {
+
+        try {
+            String token = authHeader.replace("Bearer ", "");
+            String username = JwtUtil.extractUsername(token);
+            User user = userService.findByUsername(username)
+                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
+
+            List<IsAttending> attending = isAttendingService.findByUserID(user.getUserID());
+            return ResponseEntity.ok(attending);
+
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+    }
+
 }

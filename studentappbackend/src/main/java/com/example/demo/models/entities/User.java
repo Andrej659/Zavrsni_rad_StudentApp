@@ -17,10 +17,10 @@ public class User {
     @Column(name = "isadmin", nullable = false)
     private Integer isAdmin;
 
-    @Column(name = "username", nullable = false, length = 30, unique = true)
+    @Column(name = "username", nullable = false, length = 50, unique = true)
     private String username;
 
-    @Column(name = "password", nullable = false, length = 30)
+    @Column(name = "password", nullable = false, length = 100)
     private String password;
 
     @ManyToOne(optional = false, fetch = FetchType.LAZY)

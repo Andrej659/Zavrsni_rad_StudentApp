@@ -17,7 +17,7 @@ public class Message {
     @Column(name = "msgID")
     private Integer msgID;
 
-    @Column(name = "msgcontent", nullable = false, length = 200)
+    @Column(name = "msgcontent", nullable = false, length = 400)
     private String msgContent;
 
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm", timezone = "UTC")

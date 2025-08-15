@@ -1,11 +1,11 @@
 import React from 'react';
-import '../css/MainContent.css';
-import UsersAdminContent from './adminComponents/UsersAdminContent';
-import FacultiesAdminContent from './adminComponents/FacultiesAdminContent';
-import AcademicYearAdminContent from './adminComponents/AcademicYearAdminContent';
-import CoursesAdminContent from './adminComponents/CoursesAdminContent';
-import EventsAdminContent from './adminComponents/EventsAdminContent';
-import IsAttendingAdminContent from './adminComponents/IsAttendingAdminContent';
+import '../../css/MainContent.css';
+import UsersAdminContent from './UsersAdminContent';
+import FacultiesAdminContent from './FacultiesAdminContent';
+import AcademicYearAdminContent from './AcademicYearAdminContent';
+import CoursesAdminContent from './CoursesAdminContent';
+import EventsAdminContent from './EventsAdminContent';
+import IsAttendingAdminContent from './IsAttendingAdminContent';
 
 interface Props {
   section: 'Users' | 'Faculties' | 'AcademicYear' | 'Courses' | 'Events' | 'IsAttending';

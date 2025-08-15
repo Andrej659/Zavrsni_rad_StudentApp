@@ -1,18 +1,23 @@
-import React, { useState } from 'react';
-import SideMenu from '../components/AdminSideMenu';
-import AdminMainContent from '../components/AdminMainContent';
-import { useNavigate } from 'react-router-dom';
-import '../css/HomePage.css';
+import React, { useState } from "react";
+import SideMenu from "../components/adminComponents/AdminSideMenu";
+import AdminMainContent from "../components/adminComponents/AdminMainContent";
+import { useNavigate } from "react-router-dom";
+import "../css/HomePage.css";
 
 const AdminPage: React.FC = () => {
   const [activeSection, setActiveSection] = useState<
-    'Users' | 'Faculties' | 'AcademicYear' | 'Courses' | 'Events' | 'IsAttending'
-  >('Users');
+    | "Users"
+    | "Faculties"
+    | "AcademicYear"
+    | "Courses"
+    | "Events"
+    | "IsAttending"
+  >("Users");
 
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    navigate('/');
+    navigate("/");
   };
 
   return (
@@ -32,7 +37,10 @@ const AdminPage: React.FC = () => {
       </header>
 
       <div className="content-wrapper">
-        <SideMenu activeSection={activeSection} onChangeSection={setActiveSection} />
+        <SideMenu
+          activeSection={activeSection}
+          onChangeSection={setActiveSection}
+        />
         <AdminMainContent section={activeSection} />
       </div>
     </div>

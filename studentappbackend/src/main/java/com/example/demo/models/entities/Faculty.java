@@ -13,7 +13,7 @@ public class Faculty {
     @Column(name = "facultyid")
     private Integer facultyID;
 
-    @Column(name = "facultyname", nullable = false, length = 30)
+    @Column(name = "facultyname", nullable = false, length = 50)
     private String facultyName;
 
     // Default constructor

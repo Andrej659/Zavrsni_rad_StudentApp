@@ -20,12 +20,10 @@ public class DocumentService {
         this.documentRepository = documentRepository;
     }
 
-    // Create or update
     public Document save(Document document) {
         return documentRepository.save(document);
     }
 
-    // Find by ID
     @Transactional(readOnly = true)
     public Optional<Document> findById(Integer id) {
         return documentRepository.findById(id);
@@ -36,14 +34,27 @@ public class DocumentService {
         return documentRepository.findAll();
     }
 
-    // Find by name
     @Transactional(readOnly = true)
     public Optional<Document> findByName(String docName) {
         return documentRepository.findByDocName(docName);
     }
 
+    public boolean existsByDocLocation(String filePath) {
+        return documentRepository.existsByDocLocation(filePath);
+    }
 
-    // Delete by ID
+    public List<Document> findByFacultyID(Integer facultyID) {
+        return documentRepository.findByUser_Faculty_FacultyID(facultyID);
+    }
+
+    public List<Document> findByUserID(Integer userID) {
+        return documentRepository.findByUser_UserID(userID);
+    }
+
+    public List<Document> findByCourseID(Integer courseID) {
+        return documentRepository.findByCourse_CourseID(courseID);
+    }
+
     public void deleteById(Integer id) {
         if (!documentRepository.existsById(id)) {
             throw new IllegalArgumentException("Document with ID " + id + " not found");

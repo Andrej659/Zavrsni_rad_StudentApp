@@ -1,4 +1,4 @@
-import './css/App.css';
+import "./css/App.css";
 import React from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -23,13 +23,10 @@ function App() {
       });
 
       localStorage.setItem("token", response.data.token);
-
-      console.log("Login successful:", response.data);
-
       if (response.data.role === 2) {
-        navigate('/admin');
+        navigate("/admin");
       } else {
-        navigate('/home');
+        navigate("/home");
       }
     } catch (error: any) {
       alert(
@@ -55,10 +52,7 @@ function App() {
 
         <div className="signup-redirect">
           <p>Nemate račun?</p>
-          <button
-            onClick={handleSignUpRedirect}
-            className="signup-button"
-          >
+          <button onClick={handleSignUpRedirect} className="signup-button">
             Registrirajte se
           </button>
         </div>

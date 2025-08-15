@@ -42,11 +42,11 @@ const CalendarContent: React.FC = () => {
 
     const facultyID = useMemo(() => {
         try {
-        const facultyId = localStorage.getItem("facultyId");
-        if (!facultyId) return null;
-        return facultyId;
+            const facultyId = localStorage.getItem("facultyId");
+            if (!facultyId) return null;
+            return facultyId;
         } catch {
-        return null;
+            return null;
         }
     }, []);
 
@@ -58,7 +58,6 @@ const CalendarContent: React.FC = () => {
         const loadCoursesForFaculty = async () => {
         try {
             const token = localStorage.getItem("token");
-            // Prvo dohvati akademske godine za fakultet
             const yearsRes = await fetch(
             `http://localhost:8080/api/academic-years/faculty/${facultyID}`,
             {
@@ -102,7 +101,7 @@ const CalendarContent: React.FC = () => {
         const fetchAttending = async () => {
         try {
             const token = localStorage.getItem("token");
-            const res = await fetch(`http://localhost:8080/api/is-attending`, {
+            const res = await fetch(`http://localhost:8080/api/is-attending/user`, {
             headers: {
                 Authorization: `Bearer ${token}`,
                 "Content-Type": "application/json",
