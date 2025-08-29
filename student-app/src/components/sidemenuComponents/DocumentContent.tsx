@@ -25,6 +25,7 @@ const DocumentsContent: React.FC = () => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [documents, setDocuments] = useState<DocumentType[]>([]);
   const [uploading, setUploading] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
 
   const facultyID = useMemo(() => {
     try {
@@ -82,6 +83,10 @@ const DocumentsContent: React.FC = () => {
     };
     loadCoursesForFaculty();
   }, [facultyID]);
+
+  const filteredDocuments = documents.filter((doc) =>
+    doc.docName.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   const fetchDocuments = async () => {
     if (!facultyID) {
@@ -288,7 +293,6 @@ const DocumentsContent: React.FC = () => {
         </button>
       </div>
 
-      {/* Desni panel: Lista dokumenata */}
       <div
         style={{
           flex: 2,
@@ -300,6 +304,35 @@ const DocumentsContent: React.FC = () => {
         }}
       >
         <h3 style={{ marginBottom: 18 }}>Dokumenti za tvoj faks</h3>
+        <div style={{ display: "flex", gap: 10, marginBottom: 18 }}>
+          <input
+            type="text"
+            placeholder="Pretraži po nazivu..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            style={{
+              flex: 1,
+              padding: "8px",
+              borderRadius: "6px",
+              border: "1px solid #bbb",
+            }}
+          />
+          <button
+            onClick={() => {}}
+            style={{
+              padding: "8px 16px",
+              borderRadius: "6px",
+              backgroundColor: "#1976d2",
+              color: "white",
+              border: "none",
+              fontWeight: "bold",
+              cursor: "pointer",
+            }}
+          >
+            Pretraži
+          </button>
+        </div>
+
         {documents.length === 0 ? (
           <div style={{ color: "#888", fontStyle: "italic" }}>
             Nema dostupnih dokumenata.
@@ -315,7 +348,7 @@ const DocumentsContent: React.FC = () => {
               </tr>
             </thead>
             <tbody>
-              {documents.map((d) => (
+              {filteredDocuments.map((d) => (
                 <tr key={d.docID}>
                   <td style={{ padding: 10 }}>{d.docName}</td>
                   <td style={{ padding: 10 }}>{d.course.courseName}</td>

@@ -48,6 +48,9 @@ const ChatBox: React.FC<Props> = ({ academicYearId }) => {
   const [connected, setConnected] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement | null>(null);
   const loggedInUser = getUserFromToken();
+  const [selectedMessageId, setSelectedMessageId] = useState<number | null>(
+    null
+  );
 
   useEffect(() => {
     if (!academicYearId) return;
@@ -70,6 +73,22 @@ const ChatBox: React.FC<Props> = ({ academicYearId }) => {
       });
   }, [academicYearId]);
 
+  const fetchAllMessages = () => {
+    const token = localStorage.getItem("token");
+    fetch(`http://localhost:8080/api/messages?yearId=${academicYearId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => setMessages(data))
+      .catch((err) => {
+        console.error("Ne mogu dohvatiti poruke:", err);
+        setMessages([]);
+      });
+  };
+
   useEffect(() => {
     if (!academicYearId) return;
 
@@ -79,20 +98,6 @@ const ChatBox: React.FC<Props> = ({ academicYearId }) => {
       onConnect: () => {
         setConnected(true);
         client.subscribe(`/topic/messages/${academicYearId}`, (message) => {
-          const fetchAllMessages = () => {
-            const token = localStorage.getItem("token");
-            fetch(
-              `http://localhost:8080/api/messages?yearId=${academicYearId}`,
-              {
-                headers: {
-                  Authorization: `Bearer ${token}`,
-                  "Content-Type": "application/json",
-                },
-              }
-            )
-              .then((res) => res.json())
-              .then((data) => setMessages(data));
-          };
           fetchAllMessages();
         });
       },
@@ -108,6 +113,35 @@ const ChatBox: React.FC<Props> = ({ academicYearId }) => {
       setConnected(false);
     };
   }, [academicYearId]);
+
+  const handleRemove = async (msgId: number) => {
+    const confirm = window.confirm(
+      "Jesi li siguran da želiš obrisati ovu poruku?"
+    );
+    if (!confirm) return;
+
+    try {
+      const token = localStorage.getItem("token");
+      const response = await fetch(
+        `http://localhost:8080/api/messages/${msgId}`,
+        {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (!response.ok) throw new Error("Greška pri brisanju poruke");
+
+      console.log("Poruka obrisana:", msgId);
+      setSelectedMessageId(null);
+      await fetchAllMessages();
+    } catch (error) {
+      console.error("Greška u brisanju:", error);
+      alert("Neuspješno brisanje poruke.");
+    }
+  };
 
   const sendMessage = () => {
     if (!messageInput || !connected || !loggedInUser) return;
@@ -148,8 +182,9 @@ const ChatBox: React.FC<Props> = ({ academicYearId }) => {
         }}
       >
         {messages.map((msg, idx) => {
-          // Sve poruke imaju user objekt!
           const isMine = msg.user.userID === loggedInUser?.userID;
+          const isSelected = selectedMessageId === msg.msgID;
+
           return (
             <div
               key={msg.msgID ? `${msg.msgID}-${idx}` : `fallback-${idx}`}
@@ -157,11 +192,17 @@ const ChatBox: React.FC<Props> = ({ academicYearId }) => {
                 display: "flex",
                 justifyContent: isMine ? "flex-end" : "flex-start",
                 marginBottom: 8,
+                position: "relative",
               }}
+              onClick={() =>
+                isMine
+                  ? setSelectedMessageId(isSelected ? null : msg.msgID)
+                  : null
+              }
             >
               {!isMine && (
                 <div style={{ marginRight: 8, fontSize: 12, color: "#236" }}>
-                  <b>{msg.user.username || "Student"}</b>
+                  <b>{msg.user.username.split("@")[0] || "Student"}</b>
                 </div>
               )}
               <div
@@ -173,6 +214,7 @@ const ChatBox: React.FC<Props> = ({ academicYearId }) => {
                   color: isMine ? "#222" : "#333",
                   alignSelf: isMine ? "flex-end" : "flex-start",
                   boxShadow: "0 2px 4px #0001",
+                  cursor: isMine ? "pointer" : "default",
                 }}
               >
                 {msg.msgContent}
@@ -191,11 +233,46 @@ const ChatBox: React.FC<Props> = ({ academicYearId }) => {
                       })
                     : ""}
                 </div>
+
+                {isMine && isSelected && (
+                  <div
+                    style={{
+                      position: "absolute",
+                      top: -40,
+                      right: 0,
+                      background: "#fff",
+                      border: "1px solid #ccc",
+                      borderRadius: 8,
+                      padding: "4px 8px",
+                      display: "flex",
+                      gap: 8,
+                      zIndex: 5,
+                      boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
+                    }}
+                  >
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleRemove(msg.msgID);
+                      }}
+                      style={{
+                        fontSize: 12,
+                        background: "none",
+                        border: "none",
+                        cursor: "pointer",
+                        color: "#d33",
+                      }}
+                    >
+                      Remove
+                    </button>
+                  </div>
+                )}
               </div>
             </div>
           );
         })}
       </div>
+
       <div style={{ display: "flex", gap: 8 }}>
         <input
           type="text"
@@ -226,6 +303,7 @@ const ChatBox: React.FC<Props> = ({ academicYearId }) => {
           Pošalji
         </button>
       </div>
+
       {!connected && (
         <div style={{ color: "#d33", fontSize: 13, marginTop: 4 }}>
           Nisi spojen na chat...

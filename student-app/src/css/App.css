@@ -4,13 +4,21 @@ html, body {
   padding: 0;
 }
 
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Inter', sans-serif; /* promijeni u svoj željeni font */
+}
+
+
 #root {
   height: 100%;
   width: 100%;
 }
 
 .home-container {
-  min-height: 100vh; 
+  min-height: 100vh;
   min-width: 100vw;
 }
 
@@ -98,5 +106,9 @@ html, body {
   opacity: 0.5;
   cursor: not-allowed;
   pointer-events: none;
+}
+
+body {
+  background: linear-gradient(135deg, #a3d0f0, #9caaf7);
 }
 

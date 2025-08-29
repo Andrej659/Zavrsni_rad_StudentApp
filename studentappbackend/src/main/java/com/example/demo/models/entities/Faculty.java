@@ -3,6 +3,7 @@ package com.example.demo.models.entities;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
+
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Table(name = "faculties")
@@ -16,15 +17,12 @@ public class Faculty {
     @Column(name = "facultyname", nullable = false, length = 50)
     private String facultyName;
 
-    // Default constructor
     public Faculty() {}
 
-    // Constructor with parameters
     public Faculty(String facultyName) {
         this.facultyName = facultyName;
     }
 
-    // Getters and Setters
     public Integer getFacultyID() {
         return facultyID;
     }
@@ -41,7 +39,6 @@ public class Faculty {
         this.facultyName = facultyName;
     }
 
-    // toString method
     @Override
     public String toString() {
         return "Faculty{" +
@@ -50,7 +47,6 @@ public class Faculty {
                 '}';
     }
 
-    // equals and hashCode methods
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

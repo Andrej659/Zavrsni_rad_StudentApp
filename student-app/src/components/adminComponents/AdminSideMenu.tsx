@@ -2,9 +2,9 @@ import React from 'react';
 import '../../css/SideMenu.css';
 
 interface Props {
-  activeSection: 'Users' | 'Faculties' | 'AcademicYear' | 'Courses' | 'Events' | 'IsAttending';
+  activeSection: 'Users' | 'Faculties' | 'AcademicYear' | 'Courses' | 'Events';
   onChangeSection: (
-    section: 'Users' | 'Faculties' | 'AcademicYear' | 'Courses' | 'Events' | 'IsAttending'
+    section: 'Users' | 'Faculties' | 'AcademicYear' | 'Courses' | 'Events'
   ) => void;
 }
 
@@ -15,7 +15,6 @@ const AdminSideMenu: React.FC<Props> = ({ activeSection, onChangeSection }) => {
     'AcademicYear',
     'Courses',
     'Events',
-    'IsAttending',
   ];
 
   return (

@@ -16,7 +16,7 @@ const HomePage: React.FC = () => {
     number | null
   >(null);
   const [activeSection, setActiveSection] = useState<
-    "Chat" | "Calendar" | "Documents"  | "Events"
+    "Chat" | "Calendar" | "Documents" | "Events"
   >("Chat");
 
   useEffect(() => {
@@ -77,21 +77,24 @@ const HomePage: React.FC = () => {
 
   const handleLogout = () => {
     localStorage.removeItem("token");
+    localStorage.removeItem("facultyId");
     navigate("/");
   };
 
-  const handleProfile = () => {
-    navigate("/profile");
-  };
 
   return (
     <div className="home-container">
       <header className="main-header">
         <div className="header-left">
-          <h1 className="logo">
+          <h1
+            className="logo"
+            onClick={handleLogout}
+            style={{ cursor: "pointer" }}
+          >
             <span className="logo-white">Student</span>
             <span className="logo-orange">App</span>
           </h1>
+
           {activeSection === "Chat" && (
             <YearSelector
               academicYears={academicYears}
@@ -101,9 +104,6 @@ const HomePage: React.FC = () => {
           )}
         </div>
         <div className="header-actions">
-          <button className="header-btn" onClick={handleProfile}>
-            Profile
-          </button>
           <button className="header-btn logout" onClick={handleLogout}>
             Logout
           </button>

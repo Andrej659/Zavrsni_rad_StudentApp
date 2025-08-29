@@ -6,12 +6,7 @@ import "../css/HomePage.css";
 
 const AdminPage: React.FC = () => {
   const [activeSection, setActiveSection] = useState<
-    | "Users"
-    | "Faculties"
-    | "AcademicYear"
-    | "Courses"
-    | "Events"
-    | "IsAttending"
+    "Users" | "Faculties" | "AcademicYear" | "Courses" | "Events"
   >("Users");
 
   const navigate = useNavigate();
@@ -24,7 +19,11 @@ const AdminPage: React.FC = () => {
     <div className="home-container">
       <header className="main-header">
         <div className="header-left">
-          <h1 className="logo">
+          <h1
+            onClick={handleLogout}
+            style={{ cursor: "pointer" }}
+            className="logo"
+          >
             <span className="logo-white">Student</span>
             <span className="logo-orange">App</span>
           </h1>

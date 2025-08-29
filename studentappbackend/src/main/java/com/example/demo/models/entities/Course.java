@@ -2,6 +2,8 @@ package com.example.demo.models.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
@@ -20,17 +22,19 @@ public class Course {
     @JoinColumn(name = "acyrid", nullable = false)
     private AcademicYear academicYear;
 
+    @OneToMany(mappedBy = "course", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Document> documents = new ArrayList<>();
 
-    // Default constructor
+    @OneToMany(mappedBy = "course", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Event> events = new ArrayList<>();
+
     public Course() {}
 
-    // Constructor with parameters
     public Course(String courseName, AcademicYear academicYear) {
         this.courseName = courseName;
         this.academicYear = academicYear;
     }
 
-    // Getters and Setters
     public Integer getCourseID() {
         return courseID;
     }

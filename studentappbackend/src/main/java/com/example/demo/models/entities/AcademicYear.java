@@ -3,6 +3,9 @@ package com.example.demo.models.entities;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Table(name = "academicyear")
@@ -20,10 +23,14 @@ public class AcademicYear {
     @JoinColumn(name = "facultyid", nullable = false)
     private Faculty faculty;
 
-    // Default constructor
+    @OneToMany(mappedBy = "academicYear", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Course> courses = new ArrayList<>();
+
+    @OneToMany(mappedBy = "academicYear", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Message> messages = new ArrayList<>();
+
     public AcademicYear() {}
 
-    // Constructor with parameters
     public AcademicYear(String acYrName, Faculty faculty) {
         this.acYrName = acYrName;
         this.faculty = faculty;

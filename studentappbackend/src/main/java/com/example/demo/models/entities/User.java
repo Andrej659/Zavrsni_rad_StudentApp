@@ -3,6 +3,9 @@ package com.example.demo.models.entities;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Table(name = "users",
@@ -26,6 +29,13 @@ public class User {
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "facultyid", nullable = false)
     private Faculty faculty;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Message> messages = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Document> documents = new ArrayList<>();
+
 
     public User() {}
 

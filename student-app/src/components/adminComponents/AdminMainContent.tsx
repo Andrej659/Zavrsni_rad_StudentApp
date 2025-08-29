@@ -5,10 +5,9 @@ import FacultiesAdminContent from './FacultiesAdminContent';
 import AcademicYearAdminContent from './AcademicYearAdminContent';
 import CoursesAdminContent from './CoursesAdminContent';
 import EventsAdminContent from './EventsAdminContent';
-import IsAttendingAdminContent from './IsAttendingAdminContent';
 
 interface Props {
-  section: 'Users' | 'Faculties' | 'AcademicYear' | 'Courses' | 'Events' | 'IsAttending';
+  section: 'Users' | 'Faculties' | 'AcademicYear' | 'Courses' | 'Events' ;
 }
 
 const AdminMainContent: React.FC<Props> = ({ section }) => {
@@ -26,8 +25,6 @@ const renderSection = () => {
         return <CoursesAdminContent />;
       case 'Events':
         return <EventsAdminContent />;
-      case 'IsAttending':
-        return <IsAttendingAdminContent />;
       default:
         return <p>Unknown section</p>;
     }
@@ -36,7 +33,6 @@ const renderSection = () => {
 
   return (
     <div className="main-content">
-      <h2>{section}</h2>
       {renderSection()}
     </div>
   );

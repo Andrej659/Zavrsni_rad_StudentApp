@@ -155,71 +155,132 @@ const EventsContent: React.FC = () => {
   };
 
   return (
-    <div className="content-box">
-      <h3>Add an Event</h3>
-      <form
-        onSubmit={handleSubmit}
+    <div style={{ display: "flex", gap: 40, alignItems: "flex-start" }}>
+      <div
         style={{
-          display: "flex",
-          flexDirection: "column",
-          gap: "12px",
-          maxWidth: "300px",
+          flex: 1,
+          background: "#f6f9ff",
+          borderRadius: 12,
+          padding: 28,
+          minWidth: 270,
+          boxShadow: "0 2px 8px #0001",
         }}
       >
-        <label htmlFor="eventName">Event Name:</label>
-        <input
-          id="eventName"
-          type="text"
-          value={eventName}
-          onChange={(e) => setEventName(e.target.value)}
-          placeholder="e.g. Midterm"
-        />
-
-        <label htmlFor="eventDate">Date & Time:</label>
-        <input
-          id="eventDate"
-          type="datetime-local"
-          value={eventDate}
-          onChange={(e) => setEventDate(e.target.value)}
-        />
-
-        <label htmlFor="year">Select Academic Year:</label>
-        <select
-          id="year"
-          value={selectedYearId}
-          onChange={(e) => setSelectedYearId(Number(e.target.value))}
+        <h3 style={{ marginBottom: "20px" }}>Dodaj novi događaj</h3>
+        <form
+          onSubmit={handleSubmit}
+          style={{ display: "flex", flexDirection: "column", gap: "12px" }}
         >
-          <option value="">-- Select Academic Year --</option>
-          {academicYears.map((y) => (
-            <option key={y.acYrID} value={y.acYrID}>
-              {y.acYrName}
-            </option>
-          ))}
-        </select>
+          <div>
+            <label htmlFor="eventName">Naziv događaja:</label>
+            <input
+              id="eventName"
+              type="text"
+              className="form-input"
+              value={eventName}
+              onChange={(e) => setEventName(e.target.value)}
+              placeholder="npr. Midterm"
+              style={{
+                width: "100%",
+                padding: "8px",
+                borderRadius: "6px",
+                border: "1px solid #bbb",
+                marginTop: "4px",
+              }}
+            />
+          </div>
 
-        <label htmlFor="course">Select Course:</label>
-        <select
-          id="course"
-          value={selectedCourseId ?? ""}
-          onChange={(e) => setSelectedCourseId(Number(e.target.value))}
-          disabled={!courses.length}
-        >
-          <option value="" disabled>
-            {selectedYearId ? "-- Select Course --" : "Select Year First"}
-          </option>
-          {courses.map((c) => (
-            <option key={c.courseID} value={c.courseID}>
-              {c.courseName}
-            </option>
-          ))}
-        </select>
+          <div>
+            <label htmlFor="eventDate">Datum i vrijeme:</label>
+            <input
+              id="eventDate"
+              type="datetime-local"
+              className="form-input"
+              value={eventDate}
+              onChange={(e) => setEventDate(e.target.value)}
+              style={{
+                width: "100%",
+                padding: "8px",
+                borderRadius: "6px",
+                border: "1px solid #bbb",
+                marginTop: "4px",
+              }}
+            />
+          </div>
 
-        <button type="submit" className="add-btn">
-          Add Event
-        </button>
-      </form>
+          <div>
+            <label htmlFor="year">Akademska godina:</label>
+            <select
+              id="year"
+              className="form-input"
+              value={selectedYearId}
+              onChange={(e) => setSelectedYearId(Number(e.target.value))}
+              style={{
+                width: "100%",
+                padding: "8px",
+                borderRadius: "6px",
+                border: "1px solid #bbb",
+                marginTop: "4px",
+              }}
+            >
+              <option value="">-- Odaberi godinu --</option>
+              {academicYears.map((y) => (
+                <option key={y.acYrID} value={y.acYrID}>
+                  {y.acYrName}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div>
+            <label htmlFor="course">Predmet:</label>
+            <select
+              id="course"
+              className="form-input"
+              value={selectedCourseId ?? ""}
+              onChange={(e) => setSelectedCourseId(Number(e.target.value))}
+              disabled={!courses.length}
+              style={{
+                width: "100%",
+                padding: "8px",
+                borderRadius: "6px",
+                border: "1px solid #bbb",
+                marginTop: "4px",
+                backgroundColor: !courses.length ? "#f3f3f3" : "#fff",
+              }}
+            >
+              <option value="" disabled>
+                {selectedYearId
+                  ? "-- Odaberi predmet --"
+                  : "Prvo odaberi godinu"}
+              </option>
+              {courses.map((c) => (
+                <option key={c.courseID} value={c.courseID}>
+                  {c.courseName}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <button
+            type="submit"
+            className="add-btn"
+            style={{
+              padding: "10px",
+              backgroundColor: "#1976d2",
+              color: "white",
+              border: "none",
+              borderRadius: "6px",
+              fontWeight: "bold",
+              cursor: "pointer",
+              marginTop: "8px",
+            }}
+          >
+            Dodaj događaj
+          </button>
+        </form>
+      </div>
     </div>
   );
 };
-
 export default EventsContent;
