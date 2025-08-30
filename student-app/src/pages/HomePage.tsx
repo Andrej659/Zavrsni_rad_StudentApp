@@ -97,7 +97,6 @@ const HomePage: React.FC = () => {
   return (
     <div className="home-container">
       <header className="main-header">
-        {/* RED 1: Logo + Logout */}
         <div className="header-row">
           <h1
             className="logo"
@@ -112,7 +111,6 @@ const HomePage: React.FC = () => {
           </button>
         </div>
 
-        {/* RED 2: Toggle + Academic Year */}
         <div className="sub-header-row">
           <button
             className={`toggle-menu-icon ${sideMenuVisible ? "active" : ""}`}
