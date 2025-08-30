@@ -23,7 +23,7 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children, allowedRoles 
       const payload = JSON.parse(atob(token.split(".")[1]));
       const userID = payload.userID;
 
-      fetch(`${import.meta.env.BACKEND_URL}/api/users/${userID}`, {
+      fetch(`${import.meta.env.VITE_BACKEND_URL}/api/users/${userID}`, {
         method: "GET",
         headers: {
           "Authorization": `Bearer ${token}`,

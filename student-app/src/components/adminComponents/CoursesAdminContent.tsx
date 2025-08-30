@@ -47,7 +47,7 @@ const CoursesAdminContent: React.FC = () => {
   const fetchFaculties = async () => {
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch("${import.meta.env.BACKEND_URL}/api/faculties", {
+      const response = await fetch("${import.meta.env.VITE_BACKEND_URL}/api/faculties", {
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
@@ -65,7 +65,7 @@ const CoursesAdminContent: React.FC = () => {
     try {
       const token = localStorage.getItem("token");
       const response = await fetch(
-        `${import.meta.env.BACKEND_URL}/api/academic-years/faculty/${facultyId}`,
+        `${import.meta.env.VITE_BACKEND_URL}/api/academic-years/faculty/${facultyId}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -85,7 +85,7 @@ const CoursesAdminContent: React.FC = () => {
   const fetchCourses = async () => {
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch("${import.meta.env.BACKEND_URL}/api/courses", {
+      const response = await fetch("${import.meta.env.VITE_BACKEND_URL}/api/courses", {
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
@@ -117,7 +117,7 @@ const CoursesAdminContent: React.FC = () => {
     try {
       setLoading(true);
       const token = localStorage.getItem("token");
-      const response = await fetch("${import.meta.env.BACKEND_URL}/api/courses", {
+      const response = await fetch("${import.meta.env.VITE_BACKEND_URL}/api/courses", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -158,7 +158,7 @@ const CoursesAdminContent: React.FC = () => {
       setRemoving(true);
       const token = localStorage.getItem("token");
       const response = await fetch(
-        `${import.meta.env.BACKEND_URL}/api/courses/${selectedCourseIdToRemove}`,
+        `${import.meta.env.VITE_BACKEND_URL}/api/courses/${selectedCourseIdToRemove}`,
         {
           method: "DELETE",
           headers: {

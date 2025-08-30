@@ -22,7 +22,7 @@ const FacultiesContent: React.FC = () => {
   const fetchFaculties = async () => {
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch("${import.meta.env.BACKEND_URL}/api/faculties", {
+      const response = await fetch("${import.meta.env.VITE_BACKEND_URL}/api/faculties", {
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
@@ -48,7 +48,7 @@ const FacultiesContent: React.FC = () => {
     try {
       setLoading(true);
       const token = localStorage.getItem("token");
-      const response = await fetch("${import.meta.env.BACKEND_URL}/api/faculties", {
+      const response = await fetch("${import.meta.env.VITE_BACKEND_URL}/api/faculties", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -83,7 +83,7 @@ const FacultiesContent: React.FC = () => {
       setRemoving(true);
       const token = localStorage.getItem("token");
       const response = await fetch(
-        `${import.meta.env.BACKEND_URL}/api/faculties/${selectedFacultyIdToRemove}`,
+        `${import.meta.env.VITE_BACKEND_URL}/api/faculties/${selectedFacultyIdToRemove}`,
         {
           method: "DELETE",
           headers: {

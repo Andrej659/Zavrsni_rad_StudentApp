@@ -68,7 +68,7 @@ const CalendarContent: React.FC = () => {
       try {
         const token = localStorage.getItem("token");
         const yearsRes = await fetch(
-          `${import.meta.env.BACKEND_URL}/api/academic-years/faculty/${facultyID}`,
+          `${import.meta.env.VITE_BACKEND_URL}/api/academic-years/faculty/${facultyID}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -82,7 +82,7 @@ const CalendarContent: React.FC = () => {
         let allCourses: Course[] = [];
         for (const year of yearsData) {
           const coursesRes = await fetch(
-            `${import.meta.env.BACKEND_URL}/api/courses/academic-year/${year.acYrID}`,
+            `${import.meta.env.VITE_BACKEND_URL}/api/courses/academic-year/${year.acYrID}`,
             {
               headers: {
                 Authorization: `Bearer ${token}`,
@@ -110,7 +110,7 @@ const CalendarContent: React.FC = () => {
     const fetchAttending = async () => {
       try {
         const token = localStorage.getItem("token");
-        const res = await fetch(`${import.meta.env.BACKEND_URL}/api/is-attending/user`, {
+        const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/is-attending/user`, {
           headers: {
             Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
@@ -140,7 +140,7 @@ const CalendarContent: React.FC = () => {
       try {
         const token = localStorage.getItem("token");
         const res = await fetch(
-          `${import.meta.env.BACKEND_URL}/api/events?courseIDs=${subscribedCourses.join(
+          `${import.meta.env.VITE_BACKEND_URL}/api/events?courseIDs=${subscribedCourses.join(
             ","
           )}`,
           {
@@ -178,7 +178,7 @@ const CalendarContent: React.FC = () => {
     };
 
     if (checked) {
-      await fetch(`${import.meta.env.BACKEND_URL}/api/is-attending`, {
+      await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/is-attending`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -189,7 +189,7 @@ const CalendarContent: React.FC = () => {
       setSubscribedCourses((subs) => [...subs, courseID]);
     } else {
       await fetch(
-        `${import.meta.env.BACKEND_URL}/api/is-attending/${courseID}/${userID}`,
+        `${import.meta.env.VITE_BACKEND_URL}/api/is-attending/${courseID}/${userID}`,
         {
           method: "DELETE",
           headers: {

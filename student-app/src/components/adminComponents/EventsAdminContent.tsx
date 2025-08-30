@@ -47,7 +47,7 @@ const EventsAdminContent: React.FC = () => {
   const fetchFaculties = async () => {
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch("${import.meta.env.BACKEND_URL}/api/faculties", {
+      const response = await fetch("${import.meta.env.VITE_BACKEND_URL}/api/faculties", {
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
@@ -64,7 +64,7 @@ const EventsAdminContent: React.FC = () => {
   const fetchEvents = async () => {
     try {
       const token = localStorage.getItem("token");
-      const res = await fetch("${import.meta.env.BACKEND_URL}/api/events", {
+      const res = await fetch("${import.meta.env.VITE_BACKEND_URL}/api/events", {
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
@@ -87,7 +87,7 @@ const EventsAdminContent: React.FC = () => {
       try {
         const token = localStorage.getItem("token");
         const res = await fetch(
-          `${import.meta.env.BACKEND_URL}/api/academic-years/faculty/${selectedFacultyId}`,
+          `${import.meta.env.VITE_BACKEND_URL}/api/academic-years/faculty/${selectedFacultyId}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -115,7 +115,7 @@ const EventsAdminContent: React.FC = () => {
       try {
         const token = localStorage.getItem("token");
         const response = await fetch(
-          `${import.meta.env.BACKEND_URL}/api/courses/academic-year/${selectedYearId}`,
+          `${import.meta.env.VITE_BACKEND_URL}/api/courses/academic-year/${selectedYearId}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -151,7 +151,7 @@ const EventsAdminContent: React.FC = () => {
     try {
       setLoading(true);
       const token = localStorage.getItem("token");
-      const res = await fetch("${import.meta.env.BACKEND_URL}/api/events", {
+      const res = await fetch("${import.meta.env.VITE_BACKEND_URL}/api/events", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -195,7 +195,7 @@ const EventsAdminContent: React.FC = () => {
       setRemoving(true);
       const token = localStorage.getItem("token");
       const res = await fetch(
-        `${import.meta.env.BACKEND_URL}/api/events/${selectedEventIdToRemove}`,
+        `${import.meta.env.VITE_BACKEND_URL}/api/events/${selectedEventIdToRemove}`,
         {
           method: "DELETE",
           headers: {

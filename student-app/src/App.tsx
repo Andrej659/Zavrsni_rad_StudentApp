@@ -44,7 +44,7 @@ function App() {
 
     try {
       const response = await axios.post(
-        `${import.meta.env.BACKEND_URL}/api/login`,
+        `${import.meta.env.VITE_BACKEND_URL}/api/login`,
         {
           username,
           password,
@@ -52,6 +52,7 @@ function App() {
       );
 
       localStorage.setItem("token", response.data.token);
+      console.log("Backend URL:", import.meta.env.VITE_BACKEND_URL);
       if (response.data.role === 2) {
         navigate("/admin");
       } else {

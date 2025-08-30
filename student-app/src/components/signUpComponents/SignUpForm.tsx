@@ -23,7 +23,7 @@ const SignUpForm: React.FC<SignUpFormProps> = ({ onSuccess }) => {
   useEffect(() => {
     const fetchFaculties = async () => {
       try {
-        const response = await fetch("${import.meta.env.BACKEND_URL}/api/faculties");
+        const response = await fetch("${import.meta.env.VITE_BACKEND_URL}/api/faculties");
         if (!response.ok) throw new Error("Failed to fetch faculties");
         const data = await response.json();
         setFaculties(data);
@@ -73,7 +73,7 @@ const SignUpForm: React.FC<SignUpFormProps> = ({ onSuccess }) => {
 
     try {
       setLoading(true);
-      const response = await fetch("${import.meta.env.BACKEND_URL}/api/users", {
+      const response = await fetch("${import.meta.env.VITE_BACKEND_URL}/api/users", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(newUser),
