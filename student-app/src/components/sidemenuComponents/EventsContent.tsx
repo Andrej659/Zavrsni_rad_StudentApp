@@ -126,7 +126,7 @@ const EventsContent: React.FC = () => {
 
     try {
       const token = localStorage.getItem("token");
-      const res = await fetch("${import.meta.env.VITE_BACKEND_URL}/api/events", {
+      const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/events`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

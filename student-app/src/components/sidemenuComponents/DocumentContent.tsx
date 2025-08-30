@@ -158,7 +158,7 @@ const DocumentsContent: React.FC = () => {
         })
       );
 
-      const res = await fetch("${import.meta.env.VITE_BACKEND_URL}/api/documents", {
+      const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/documents`, {
         method: "POST",
         body: formData,
         headers: {

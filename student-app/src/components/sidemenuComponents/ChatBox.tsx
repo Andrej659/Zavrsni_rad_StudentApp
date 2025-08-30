@@ -3,7 +3,7 @@ import { Client } from "@stomp/stompjs";
 import SockJS from "sockjs-client";
 import "../../css/ChatBox.css";
 
-const WEBSOCKET_BASE = "${import.meta.env.VITE_BACKEND_URL}/chat";
+const WEBSOCKET_BASE = `${import.meta.env.VITE_BACKEND_URL}/chat`;
 
 interface User {
   userID: number;
