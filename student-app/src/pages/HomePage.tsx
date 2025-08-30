@@ -35,12 +35,13 @@ const HomePage: React.FC = () => {
       }
 
       if (!userId) {
+        handleNoToken();
         alert("No user ID found in token");
         return;
       }
     } else {
+      handleNoToken();
       alert("No token found in localStorage");
-      handleNoToken;
     }
 
     fetch(`${import.meta.env.VITE_BACKEND_URL}/api/users/${userId}`, {
