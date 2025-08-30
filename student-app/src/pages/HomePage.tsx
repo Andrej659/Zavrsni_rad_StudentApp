@@ -42,6 +42,7 @@ const HomePage: React.FC = () => {
     } else {
       handleNoToken();
       alert("No token found in localStorage");
+      return;
     }
 
     fetch(`${import.meta.env.VITE_BACKEND_URL}/api/users/${userId}`, {
