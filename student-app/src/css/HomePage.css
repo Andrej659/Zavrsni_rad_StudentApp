@@ -6,6 +6,15 @@ body,
   padding: 0;
 }
 
+* {
+  box-sizing: border-box;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+
 .home-container {
   height: 100vh;
   display: flex;
@@ -27,10 +36,14 @@ body,
 
 .header-row,
 .sub-header-row {
+  margin-top: 12px;
   display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
   justify-content: space-between;
   align-items: center;
 }
+
 
 .toggle-menu-icon {
   display: flex;
@@ -108,3 +121,11 @@ body,
   overflow: hidden;
   background-color: #003366;
 }
+
+.toggle-menu-icon,
+.header-btn,
+.year-options select {
+  max-width: 100%;
+  flex-shrink: 1;
+}
+
