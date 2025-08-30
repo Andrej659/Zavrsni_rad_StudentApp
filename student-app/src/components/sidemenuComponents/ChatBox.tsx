@@ -97,7 +97,7 @@ const ChatBox: React.FC<Props> = ({ academicYearId }) => {
       webSocketFactory: () => socket,
       onConnect: () => {
         setConnected(true);
-        client.subscribe(`/topic/messages/${academicYearId}`, (message) => {
+        client.subscribe(`/topic/messages/${academicYearId}`, () => {
           fetchAllMessages();
         });
       },
@@ -275,6 +275,7 @@ const ChatBox: React.FC<Props> = ({ academicYearId }) => {
 
       <div style={{ display: "flex", gap: 8 }}>
         <input
+          className="form-input"
           type="text"
           value={messageInput}
           onChange={(e) => setMessageInput(e.target.value)}
