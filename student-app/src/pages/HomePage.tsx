@@ -19,6 +19,10 @@ const HomePage: React.FC = () => {
     "Chat" | "Calendar" | "Documents" | "Events"
   >("Chat");
 
+  const handleNoToken = () => {
+    navigate("/");
+  };
+
   useEffect(() => {
     const token = localStorage.getItem("token");
     let userId: number | null = null;
@@ -36,7 +40,7 @@ const HomePage: React.FC = () => {
       }
     } else {
       alert("No token found in localStorage");
-      return;
+      handleNoToken;
     }
 
     fetch(`${import.meta.env.VITE_BACKEND_URL}/api/users/${userId}`, {
