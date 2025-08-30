@@ -12,13 +12,11 @@ html, body, #root {
 
 .main-header {
   width: 100%;
-  height: 100px;
   background-color: #003366;
   color: white;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 30px;
+  flex-direction: column;
+  padding: 10px 30px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   position: fixed;
   top: 0;
@@ -26,10 +24,37 @@ html, body, #root {
   z-index: 100;
 }
 
-.header-left {
+.header-row {
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  gap: 30px;
+}
+
+.sub-header-row {
+  margin-top: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.toggle-menu-icon {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 8px;
+  transition: background-color 0.2s ease;
+}
+
+.toggle-menu-icon img {
+  width: 24px;
+  height: 24px;
+  filter: grayscale(100%) brightness(1);
+  transition: filter 0.2s ease;
+}
+
+.toggle-menu-icon.active img {
+  filter: grayscale(0%) brightness(0);
 }
 
 .logo {
@@ -40,15 +65,10 @@ html, body, #root {
 .logo-white { color: white; }
 .logo-orange { color: #FFA500; }
 
-.year-options {
-  display: flex;
-  align-items: center;
-}
-
 .header-actions {
   display: flex;
   gap: 10px;
-  padding-right: 40px;
+  padding-right: 0;
 }
 
 .header-btn {
@@ -65,55 +85,11 @@ html, body, #root {
 .header-btn:hover { background-color: rgba(255, 255, 255, 0.1); }
 .header-btn.logout:hover { background: #c93030; color: #fff; }
 
-
 .content-wrapper {
   display: flex;
   flex: 1 1 0;
-  margin-top: 100px;
+  margin-top: 150px;
   min-height: 0;
-  height: calc(100vh - 100px);
+  height: calc(100vh - 150px);
   overflow: hidden;
 }
-
-.header-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.sub-header-row {
-  margin-top: 12px;
-  display: flex;
-  align-items: center;
-  gap: 16px;
-}
-
-.toggle-menu-btn {
-  padding: 6px 12px;
-  font-size: 14px;
-  background-color: #f2f2f2;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  cursor: pointer;
-}
-
-.toggle-menu-icon {
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 4px;
-  border-radius: 8px;
-  transition: background-color 0.2s ease;
-}
-
-.toggle-menu-icon img {
-  width: 24px;
-  height: 24px;
-  filter: grayscale(100%) brightness(1); /* neutral sivkasto */
-  transition: filter 0.2s ease;
-}
-
-.toggle-menu-icon.active img {
-  filter: grayscale(0%) brightness(0); /* full black */
-}
-
