@@ -97,3 +97,23 @@ html, body, #root {
   cursor: pointer;
 }
 
+.toggle-menu-icon {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 8px;
+  transition: background-color 0.2s ease;
+}
+
+.toggle-menu-icon img {
+  width: 24px;
+  height: 24px;
+  filter: grayscale(100%) brightness(1); /* neutral sivkasto */
+  transition: filter 0.2s ease;
+}
+
+.toggle-menu-icon.active img {
+  filter: grayscale(0%) brightness(0); /* full black */
+}
+

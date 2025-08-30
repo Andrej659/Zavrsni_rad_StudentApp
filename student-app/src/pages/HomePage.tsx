@@ -4,6 +4,7 @@ import YearSelector from "../components/YearSelector";
 import SideMenu from "../components/SideMenu";
 import MainContent from "../components/MainContent";
 import "../css/HomePage.css";
+import menuIcon from "../assets/menu.png";
 
 interface AcademicYear {
   acYrID: number;
@@ -112,10 +113,10 @@ const HomePage: React.FC = () => {
 
         <div className="sub-header-row">
           <button
-            className="toggle-menu-btn"
+            className={`toggle-menu-icon ${sideMenuVisible ? "active" : ""}`}
             onClick={() => setSideMenuVisible((prev) => !prev)}
           >
-            {sideMenuVisible ? "Hide Menu" : "Show Menu"}
+            <img src={menuIcon} alt="Toggle menu" />
           </button>
 
           {activeSection === "Chat" && (
@@ -129,10 +130,13 @@ const HomePage: React.FC = () => {
       </header>
 
       <div className="content-wrapper">
-        <SideMenu
-          activeSection={activeSection}
-          onChangeSection={setActiveSection}
-        />
+        {sideMenuVisible && (
+          <SideMenu
+            activeSection={activeSection}
+            onChangeSection={setActiveSection}
+          />
+        )}
+
         <MainContent
           section={activeSection}
           academicYearId={selectedAcademicYearId}
