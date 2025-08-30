@@ -128,15 +128,4 @@ body {
   flex-shrink: 1;
 }
 
-@media (max-width: 600px) {
-  .header-row,
-  .sub-header-row {
-    flex-direction: column;
-    align-items: flex-start;
-  }
 
-  .header-actions {
-    width: 100%;
-    justify-content: flex-end;
-  }
-}
