@@ -43,10 +43,13 @@ function App() {
     }
 
     try {
-      const response = await axios.post("${import.meta.env.BACKEND_URL}/api/login", {
-        username,
-        password,
-      });
+      const response = await axios.post(
+        `${import.meta.env.BACKEND_URL}/api/login`,
+        {
+          username,
+          password,
+        }
+      );
 
       localStorage.setItem("token", response.data.token);
       if (response.data.role === 2) {
@@ -106,7 +109,7 @@ function App() {
           />
           {passwordError && <span className="error">{passwordError}</span>}
 
-          <button className= "button" type="submit" disabled={!isFormValid()}>
+          <button className="button" type="submit" disabled={!isFormValid()}>
             Log in
           </button>
         </form>

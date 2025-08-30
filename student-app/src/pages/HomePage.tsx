@@ -57,12 +57,17 @@ const HomePage: React.FC = () => {
           return;
         }
 
-        fetch(`${import.meta.env.BACKEND_URL}/api/academic-years/faculty/${facultyId}`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-        })
+        fetch(
+          `${
+            import.meta.env.BACKEND_URL
+          }/api/academic-years/faculty/${facultyId}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
+          }
+        )
           .then((res) => {
             return res.json();
           })
@@ -80,7 +85,6 @@ const HomePage: React.FC = () => {
     localStorage.removeItem("facultyId");
     navigate("/");
   };
-
 
   return (
     <div className="home-container">
