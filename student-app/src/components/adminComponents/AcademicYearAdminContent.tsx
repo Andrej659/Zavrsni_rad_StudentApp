@@ -33,7 +33,7 @@ const AcademicYearAdminContent: React.FC = () => {
   const fetchFaculties = async () => {
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch("http://localhost:8080/api/faculties", {
+      const response = await fetch("${import.meta.env.BACKEND_URL}/api/faculties", {
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
@@ -50,7 +50,7 @@ const AcademicYearAdminContent: React.FC = () => {
   const fetchAcademicYears = async () => {
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch("http://localhost:8080/api/academic-years", {
+      const response = await fetch("${import.meta.env.BACKEND_URL}/api/academic-years", {
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
@@ -82,7 +82,7 @@ const AcademicYearAdminContent: React.FC = () => {
     try {
       setLoading(true);
       const token = localStorage.getItem("token");
-      const response = await fetch("http://localhost:8080/api/academic-years", {
+      const response = await fetch("${import.meta.env.BACKEND_URL}/api/academic-years", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -120,7 +120,7 @@ const AcademicYearAdminContent: React.FC = () => {
       setRemoving(true);
       const token = localStorage.getItem("token");
       const response = await fetch(
-        `http://localhost:8080/api/academic-years/${selectedYearIdToRemove}`,
+        `${import.meta.env.BACKEND_URL}/api/academic-years/${selectedYearIdToRemove}`,
         {
           method: "DELETE",
           headers: {

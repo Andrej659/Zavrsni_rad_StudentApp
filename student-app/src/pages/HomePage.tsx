@@ -39,7 +39,7 @@ const HomePage: React.FC = () => {
       return;
     }
 
-    fetch(`http://localhost:8080/api/users/${userId}`, {
+    fetch(`${import.meta.env.BACKEND_URL}/api/users/${userId}`, {
       headers: {
         Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
@@ -57,7 +57,7 @@ const HomePage: React.FC = () => {
           return;
         }
 
-        fetch(`http://localhost:8080/api/academic-years/faculty/${facultyId}`, {
+        fetch(`${import.meta.env.BACKEND_URL}/api/academic-years/faculty/${facultyId}`, {
           headers: {
             Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",

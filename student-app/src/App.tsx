@@ -43,7 +43,7 @@ function App() {
     }
 
     try {
-      const response = await axios.post("http://localhost:8080/api/login", {
+      const response = await axios.post("${import.meta.env.BACKEND_URL}/api/login", {
         username,
         password,
       });

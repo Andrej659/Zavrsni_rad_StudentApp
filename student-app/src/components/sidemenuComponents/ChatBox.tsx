@@ -3,7 +3,7 @@ import { Client } from "@stomp/stompjs";
 import SockJS from "sockjs-client";
 import "../../css/ChatBox.css";
 
-const WEBSOCKET_BASE = "http://localhost:8080/chat";
+const WEBSOCKET_BASE = "${import.meta.env.BACKEND_URL}/chat";
 
 interface User {
   userID: number;
@@ -56,7 +56,7 @@ const ChatBox: React.FC<Props> = ({ academicYearId }) => {
     if (!academicYearId) return;
     const token = localStorage.getItem("token");
 
-    fetch(`http://localhost:8080/api/messages?yearId=${academicYearId}`, {
+    fetch(`${import.meta.env.BACKEND_URL}/api/messages?yearId=${academicYearId}`, {
       headers: {
         Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
@@ -75,7 +75,7 @@ const ChatBox: React.FC<Props> = ({ academicYearId }) => {
 
   const fetchAllMessages = () => {
     const token = localStorage.getItem("token");
-    fetch(`http://localhost:8080/api/messages?yearId=${academicYearId}`, {
+    fetch(`${import.meta.env.BACKEND_URL}/api/messages?yearId=${academicYearId}`, {
       headers: {
         Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
@@ -123,7 +123,7 @@ const ChatBox: React.FC<Props> = ({ academicYearId }) => {
     try {
       const token = localStorage.getItem("token");
       const response = await fetch(
-        `http://localhost:8080/api/messages/${msgId}`,
+        `${import.meta.env.BACKEND_URL}/api/messages/${msgId}`,
         {
           method: "DELETE",
           headers: {

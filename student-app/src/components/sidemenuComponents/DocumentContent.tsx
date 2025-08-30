@@ -46,7 +46,7 @@ const DocumentsContent: React.FC = () => {
       try {
         const token = localStorage.getItem("token");
         const yearsRes = await fetch(
-          `http://localhost:8080/api/academic-years/faculty/${facultyID}`,
+          `${import.meta.env.BACKEND_URL}/api/academic-years/faculty/${facultyID}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -60,7 +60,7 @@ const DocumentsContent: React.FC = () => {
         let allCourses: Course[] = [];
         for (const year of yearsData) {
           const coursesRes = await fetch(
-            `http://localhost:8080/api/courses/academic-year/${year.acYrID}`,
+            `${import.meta.env.BACKEND_URL}/api/courses/academic-year/${year.acYrID}`,
             {
               headers: {
                 Authorization: `Bearer ${token}`,
@@ -96,7 +96,7 @@ const DocumentsContent: React.FC = () => {
     try {
       const token = localStorage.getItem("token");
       const res = await fetch(
-        `http://localhost:8080/api/documents/faculty/${facultyID}`,
+        `${import.meta.env.BACKEND_URL}/api/documents/faculty/${facultyID}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -158,7 +158,7 @@ const DocumentsContent: React.FC = () => {
         })
       );
 
-      const res = await fetch("http://localhost:8080/api/documents", {
+      const res = await fetch("${import.meta.env.BACKEND_URL}/api/documents", {
         method: "POST",
         body: formData,
         headers: {
@@ -182,7 +182,7 @@ const DocumentsContent: React.FC = () => {
 
       console.log("Downloading document:", docId, docName);
       const res = await fetch(
-        `http://localhost:8080/api/documents/download/${docId}`,
+        `${import.meta.env.BACKEND_URL}/api/documents/download/${docId}`,
         {
           method: "GET",
           headers: {

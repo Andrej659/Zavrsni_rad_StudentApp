@@ -37,7 +37,7 @@ const EventsContent: React.FC = () => {
       try {
         const token = localStorage.getItem("token");
         const res = await fetch(
-          `http://localhost:8080/api/academic-years/faculty/${facultyID}`,
+          `${import.meta.env.BACKEND_URL}/api/academic-years/faculty/${facultyID}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -66,7 +66,7 @@ const EventsContent: React.FC = () => {
       try {
         const token = localStorage.getItem("token");
         const response = await fetch(
-          `http://localhost:8080/api/courses/academic-year/${selectedYearId}`,
+          `${import.meta.env.BACKEND_URL}/api/courses/academic-year/${selectedYearId}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -126,7 +126,7 @@ const EventsContent: React.FC = () => {
 
     try {
       const token = localStorage.getItem("token");
-      const res = await fetch("http://localhost:8080/api/events", {
+      const res = await fetch("${import.meta.env.BACKEND_URL}/api/events", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

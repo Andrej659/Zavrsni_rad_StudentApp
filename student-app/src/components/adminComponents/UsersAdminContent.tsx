@@ -32,7 +32,7 @@ const UsersAdminContent: React.FC = () => {
       try {
         const token = localStorage.getItem("token");
 
-        const response = await fetch("http://localhost:8080/api/faculties", {
+        const response = await fetch("${import.meta.env.BACKEND_URL}/api/faculties", {
           headers: {
             Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
@@ -51,7 +51,7 @@ const UsersAdminContent: React.FC = () => {
     const fetchUsers = async () => {
       const token = localStorage.getItem("token");
       try {
-        const response = await fetch("http://localhost:8080/api/users", {
+        const response = await fetch("${import.meta.env.BACKEND_URL}/api/users", {
           headers: {
             Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
@@ -90,7 +90,7 @@ const UsersAdminContent: React.FC = () => {
     try {
       setLoading(true);
       const token = localStorage.getItem("token");
-      const response = await fetch("http://localhost:8080/api/users", {
+      const response = await fetch("${import.meta.env.BACKEND_URL}/api/users", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -108,7 +108,7 @@ const UsersAdminContent: React.FC = () => {
       setIsAdmin(1);
       setSelectedFacultyId(null);
 
-      const updatedUsers = await fetch("http://localhost:8080/api/users", {
+      const updatedUsers = await fetch("${import.meta.env.BACKEND_URL}/api/users", {
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
@@ -136,7 +136,7 @@ const UsersAdminContent: React.FC = () => {
       setRemoving(true);
       const token = localStorage.getItem("token");
       const response = await fetch(
-        `http://localhost:8080/api/users/${selectedUserIdToRemove}`,
+        `${import.meta.env.BACKEND_URL}/api/users/${selectedUserIdToRemove}`,
         {
           method: "DELETE",
           headers: {
@@ -148,7 +148,7 @@ const UsersAdminContent: React.FC = () => {
       if (!response.ok) throw new Error("Failed to delete user");
       alert("Korisnik obrisan.");
 
-      const updatedUsers = await fetch("http://localhost:8080/api/users", {
+      const updatedUsers = await fetch("${import.meta.env.BACKEND_URL}/api/users", {
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
