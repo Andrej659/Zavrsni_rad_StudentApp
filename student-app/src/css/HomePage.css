@@ -14,11 +14,11 @@ body {
   overflow-x: hidden;
 }
 
+
 .home-container {
-  min-height: 100vh;
+  height: 100vh;
   display: flex;
   flex-direction: column;
-  padding-top: var(--header-height, auto);
 }
 
 .main-header {
@@ -28,11 +28,8 @@ body {
   display: block;
   padding: 10px 30px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 100;
 }
+
 
 .header-row,
 .sub-header-row {
@@ -43,6 +40,7 @@ body {
   justify-content: space-between;
   align-items: center;
 }
+
 
 .toggle-menu-icon {
   display: flex;
@@ -77,7 +75,6 @@ body {
   font-size: 40px;
   font-weight: bold;
 }
-
 .logo-white {
   color: white;
 }
@@ -114,12 +111,12 @@ body {
 
 .content-wrapper {
   display: flex;
-  flex: 1 1 auto;
-  min-height: auto;
-  height: auto;
-  overflow: hidden;
+  flex-direction: column;
+  width: 100%;
+  min-height: 100vh;
   background-color: #003366;
 }
+
 
 .toggle-menu-icon,
 .header-btn,
@@ -127,5 +124,4 @@ body {
   max-width: 100%;
   flex-shrink: 1;
 }
-
 
