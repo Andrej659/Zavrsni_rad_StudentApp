@@ -18,6 +18,7 @@ const HomePage: React.FC = () => {
   const [activeSection, setActiveSection] = useState<
     "Chat" | "Calendar" | "Documents" | "Events"
   >("Chat");
+  const [sideMenuVisible, setSideMenuVisible] = useState(true);
 
   const handleNoToken = () => {
     navigate("/");
@@ -95,7 +96,7 @@ const HomePage: React.FC = () => {
   return (
     <div className="home-container">
       <header className="main-header">
-        <div className="header-left">
+        <div className="header-row">
           <h1
             className="logo"
             onClick={handleLogout}
@@ -104,6 +105,18 @@ const HomePage: React.FC = () => {
             <span className="logo-white">Student</span>
             <span className="logo-orange">App</span>
           </h1>
+          <button className="header-btn logout" onClick={handleLogout}>
+            Logout
+          </button>
+        </div>
+
+        <div className="sub-header-row">
+          <button
+            className="toggle-menu-btn"
+            onClick={() => setSideMenuVisible((prev) => !prev)}
+          >
+            {sideMenuVisible ? "Hide Menu" : "Show Menu"}
+          </button>
 
           {activeSection === "Chat" && (
             <YearSelector
@@ -112,11 +125,6 @@ const HomePage: React.FC = () => {
               onSelectAcademicYear={setSelectedAcademicYearId}
             />
           )}
-        </div>
-        <div className="header-actions">
-          <button className="header-btn logout" onClick={handleLogout}>
-            Logout
-          </button>
         </div>
       </header>
 

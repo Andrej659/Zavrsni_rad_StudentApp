@@ -33,12 +33,15 @@ const AcademicYearAdminContent: React.FC = () => {
   const fetchFaculties = async () => {
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/faculties`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_BACKEND_URL}/api/faculties`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
       if (!response.ok) throw new Error("Failed to fetch faculties");
       const data = await response.json();
       setFaculties(data);
@@ -50,12 +53,15 @@ const AcademicYearAdminContent: React.FC = () => {
   const fetchAcademicYears = async () => {
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/academic-years`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_BACKEND_URL}/api/academic-years`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
       if (!response.ok) throw new Error("Failed to fetch academic years");
       const data = await response.json();
       setAcademicYears(data);
@@ -82,14 +88,17 @@ const AcademicYearAdminContent: React.FC = () => {
     try {
       setLoading(true);
       const token = localStorage.getItem("token");
-      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/academic-years`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify(academicYear),
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_BACKEND_URL}/api/academic-years`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(academicYear),
+        }
+      );
 
       if (response.ok) {
         alert("Academic year added successfully!");
@@ -120,7 +129,9 @@ const AcademicYearAdminContent: React.FC = () => {
       setRemoving(true);
       const token = localStorage.getItem("token");
       const response = await fetch(
-        `${import.meta.env.VITE_BACKEND_URL}/api/academic-years/${selectedYearIdToRemove}`,
+        `${
+          import.meta.env.VITE_BACKEND_URL
+        }/api/academic-years/${selectedYearIdToRemove}`,
         {
           method: "DELETE",
           headers: {
@@ -159,13 +170,20 @@ const AcademicYearAdminContent: React.FC = () => {
           style={{ display: "flex", flexDirection: "column", gap: "12px" }}
         >
           <label htmlFor="yearName">Academic Year Name:</label>
-          <input
+          <select
             id="yearName"
-            type="text"
             className="form-input"
             value={acYrName}
             onChange={(e) => setAcYrName(e.target.value)}
-          />
+            required
+          >
+            <option value="" disabled>
+              -- Select Year --
+            </option>
+            <option value="Prva godina">Prva godina</option>
+            <option value="Druga godina">Druga godina</option>
+            <option value="Treća godina">Treća godina</option>
+          </select>
 
           <label htmlFor="faculty">Select Faculty:</label>
           <select
