@@ -14,8 +14,7 @@ html, body, #root {
   width: 100%;
   background-color: #003366;
   color: white;
-  display: flex;
-  flex-direction: column;
+  display: block;
   padding: 10px 30px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   position: fixed;
@@ -24,18 +23,14 @@ html, body, #root {
   z-index: 100;
 }
 
-.header-row {
+
+.header-row,
+.sub-header-row {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.sub-header-row {
-  margin-top: 12px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
 
 .toggle-menu-icon {
   background: none;
@@ -93,3 +88,4 @@ html, body, #root {
   height: calc(100vh - 150px);
   overflow: hidden;
 }
+
